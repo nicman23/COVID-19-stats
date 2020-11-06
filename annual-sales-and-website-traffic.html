@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-		
-		<title>Annual Sales And Website Traffic - 2015</title>
-		
+
+		<title>COVID-19 Greece Tracker</title>
+
     <!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="assets/bootstrap/bootstrap4-alpha3.min.css">
 		<!-- Google Font Roboto -->
 		<link rel="stylesheet" href="assets/fonts/font-roboto.css">
-		
-		<style>	
+
+		<style>
 			body {
 				background-color: #000000;
 				color: #ffffff;
@@ -32,7 +32,7 @@
 				margin-bottom: 2rem;
 				margin-top: 2rem;
 			}
-			
+
 			#revenue-tag {
 				border-radius: 0px !important;
 				font-size: inherit !important;
@@ -61,18 +61,18 @@
 			}
 
 			#users-doughnut-chart, #users-spline-chart {
-				height: 280px; 
+				height: 280px;
 				margin-top: 2rem;
 				width: 100%;
 			}
 
 			#users-countries-bar-chart {
-				height: 360px; 
+				height: 360px;
 				margin-top: 2rem;
 				width: 100%;
 			}
 		</style>
-		
+
 		<!-- Scripts -->
 		<script src="assets/jquery/jquery-3.1.0.min.js"></script>
 		<script src="assets/tether/tether.min.js"></script>
@@ -80,14 +80,14 @@
 		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 		<script src="assets/jquery.scrollspeed/jquery.scrollspeed.min.js"></script>
 		<script src="assets/jquery.inview/jquery.inview.min.js"></script>
-		
+
 		<script>
 			$(function () {
 				var totalRevenue = 15341110,
 						totalUsers = 7687036;
-				
+
 				// CanvasJS doughnut chart to show annual sales percentage from United States(US)
-				var salesDoughnutChartUS = new CanvasJS.Chart("sales-doughnut-chart-us", { 
+				var salesDoughnutChartUS = new CanvasJS.Chart("sales-doughnut-chart-us", {
 					animationEnabled: true,
 					backgroundColor: "transparent",
 					title: {
@@ -119,7 +119,7 @@
 				});
 
 				// CanvasJS doughnut chart to show annual sales percentage from Netherlands(NL)
-				var salesDoughnutChartNL = new CanvasJS.Chart("sales-doughnut-chart-nl", { 
+				var salesDoughnutChartNL = new CanvasJS.Chart("sales-doughnut-chart-nl", {
 					animationEnabled: true,
 					backgroundColor: "transparent",
 					title: {
@@ -151,7 +151,7 @@
 				});
 
 				// CanvasJS doughnut chart to show annual sales percentage from Germany(DE)
-				var salesDoughnutChartDE = new CanvasJS.Chart("sales-doughnut-chart-de", { 
+				var salesDoughnutChartDE = new CanvasJS.Chart("sales-doughnut-chart-de", {
 					animationEnabled: true,
 					backgroundColor: "transparent",
 					title: {
@@ -192,7 +192,7 @@
 						maximum: new Date("1 Dec 2015"),
 						minimum: new Date("1 Jan 2015"),
 						tickLength: 0,
-						valueFormatString: " "						
+						valueFormatString: " "
 					},
 					axisY: {
 						gridThickness: 0,
@@ -211,7 +211,7 @@
 							color: "#424242",
 							fillOpacity: 1,
 							lineColor: "#ffffff",
-							lineThickness: 3,							
+							lineThickness: 3,
 							markerSize: 0,
 							type: "splineArea",
 							dataPoints: [
@@ -231,7 +231,7 @@
 						}
 					]
 				});
-				
+
 				// CanvasJS spline area chart to show orders from Jan 2015 - Dec 2015
 				var ordersSplineAreaChart = new CanvasJS.Chart("orders-spline-area-chart", {
 					animationEnabled: true,
@@ -242,7 +242,7 @@
 						maximum: new Date("1 Dec 2015"),
 						minimum: new Date("1 Jan 2015"),
 						tickLength: 0,
-						valueFormatString: " "						
+						valueFormatString: " "
 					},
 					axisY: {
 						gridThickness: 0,
@@ -261,7 +261,7 @@
 							color: "#424242",
 							fillOpacity: 1,
 							lineColor: "#ffffff",
-							lineThickness: 3,							
+							lineThickness: 3,
 							markerSize: 0,
 							type: "splineArea",
 							dataPoints: [
@@ -281,7 +281,7 @@
 						}
 					]
 				});
-				
+
 				// CanvasJS spline area chart to show revenue from Jan 2015 - Dec 2015
 				var revenueSplineAreaChart = new CanvasJS.Chart("revenue-spline-area-chart", {
 					animationEnabled: true,
@@ -292,7 +292,7 @@
 						maximum: new Date("1 Dec 2015"),
 						minimum: new Date("1 Jan 2015"),
 						tickLength: 0,
-						valueFormatString: " "						
+						valueFormatString: " "
 					},
 					axisY: {
 						gridThickness: 0,
@@ -311,7 +311,7 @@
 							color: "#424242",
 							fillOpacity: 1,
 							lineColor: "#ffffff",
-							lineThickness: 3,							
+							lineThickness: 3,
 							markerSize: 0,
 							type: "splineArea",
 							yValueFormatString: "$###,###.##",
@@ -345,7 +345,7 @@
 						contentFormatter: function (e) {
 							return e.entries[0].dataPoint.name + ": " + CanvasJS.formatNumber(e.entries[0].dataPoint.y, '###,###') + " - " + Math.round(e.entries[0].dataPoint.y / totalUsers * 100) + "%"; // calcuting and showing percentage of users inside tooltip
 						}
-					}, 
+					},
 					data: [
 						{
 							innerRadius: "82%",
@@ -354,7 +354,7 @@
 							startAngle: 180,
 							type: "doughnut",
 							dataPoints: [
-								{ y: 1921757, name: "Returning", color: "#c70000" }, 
+								{ y: 1921757, name: "Returning", color: "#c70000" },
 								{ y: 5765279, name: "New", color: "#424242", exploded: true }
 							]
 						}
@@ -395,7 +395,7 @@
 							legendMarkerType: "square",
 							legendText: "NEW",
 							name: "NEW",
-							showInLegend: true,						
+							showInLegend: true,
 							type: "spline",
 							dataPoints: [
 								{ x: new Date("1 Jan 2015"), y: 325799 },
@@ -413,7 +413,7 @@
 							]
 						},
 						{
-							color: "#c70000",						
+							color: "#c70000",
 							legendMarkerType: "square",
 							legendText: "RETURNING",
 							name: "RETURNING",
@@ -436,7 +436,7 @@
 						}
 					]
 				});
-		
+
 				// CanvasJS bar chart to show country wise annual users percentage
 				var usersCountriesBarChart = new CanvasJS.Chart("users-countries-bar-chart", {
 					animationEnabled: true,
@@ -452,7 +452,7 @@
 						lineThickness: 0,
 						tickThickness: 0,
 						valueFormatString: " "
-						                    
+
 					},
 					toolTip: {
 						backgroundColor: "#ffffff",
@@ -484,9 +484,9 @@
 						}
 					]
 				});
-		
+
 				jQuery.scrollSpeed(100, 400); // for smooth mouse wheel scrolling
-				
+
 				// jQuery.inview plugin
 				$('.inview').one('inview', function (e, isInView) {
 					if (isInView) {
@@ -512,73 +512,73 @@
 						}
 					}
 				});
-		
+
 			});
-	
+
 		</script>
-		
+
   </head>
   <body>
 		<div class="container">
-			<h1>Annual Sales And Website Traffic - 2015</h1>
-			<h5 class="m-t-1">Revenue: <span class="tag tag-success" id="revenue-tag">$15,341,110</span></h5>
+			<h1>COVID-19 Greece Tracker</h1>
+			<h5 class="m-t-1">Total Confirmed Cases: <span class="tag tag-success" id="revenue-tag">$15,341,110</span></h5>
 			<hr class="m-t-2">
-			
-			<h3>Sales - Top 3 Countries</h3>
-			
+
+			<h3>Regions with most cases</h3>
+
 			<!-- sales doughnut charts -->
-			<div class="row">	
+			<div class="row">
 				<div class="col-md-4">
 					<div class="inview" id="sales-doughnut-chart-us"></div>
 					<h3 class="align-center">United States</h3>
 				</div>
-				
+
 				<div class="col-md-4">
 					<div class="inview" id="sales-doughnut-chart-nl"></div>
 					<h3 class="align-center">Netherlands</h3>
 				</div>
-				
+
 				<div class="col-md-4">
 					<div class="inview" id="sales-doughnut-chart-de"></div>
 					<h3 class="align-center">Germany</h3>
 				</div>
 			</div>
 			<!-- row sales doughnt charts -->
-			
+
 			<hr>
-			
+
 			<!-- stats spline area charts -->
 			<div class="row">
 				<div class="col-md-4">
 					<div class="card card-block">
-						<h5 class="card-title">PAGE VIEWS</h5>
+						<h5 class="card-title">Total infections</h5>
 						<h2>38,435,184</h2>
 						<div class="inview" id="page-views-spline-area-chart"></div>
 					</div>
 				</div>
-				
+
 				<div class="col-md-4">
 					<div class="card card-block">
-						<h5 class="card-title">ORDERS</h5>
+						<h5 class="card-title">Critical</h5>
 						<h2 >320,151</h2>
 						<div class="inview" id="orders-spline-area-chart"></div>
 					</div>
 				</div>
-				
+
 				<div class="col-md-4">
 					<div class="card card-block">
-						<h5 class="card-title">REVENUE</h5>
+						<h5 class="card-title">Deaths</h5>
 						<h2>$15,341,110</h2>
 						<div class="inview" id="revenue-spline-area-chart"></div>
 					</div>
 				</div>
 			</div>
 			<!-- row stats spline area charts -->
-			
+
 			<hr>
-			
-			<h3>New vs Returning Users</h3>
-			
+
+			<h3>Total infections - Tests Conducted</h3>
+
 			<!-- users doughnut and spline chart -->
 			<div class="row">
 				<div class="col-lg-3 col-md-4">
@@ -590,20 +590,20 @@
 				</div>
 			</div>
 			<!-- row users doughnut and spline chart -->
-			
+
 			<hr>
-			
-			<h3>Users By Countries</h3>
-			
+
+			<h3>Cases by region</h3>
+
 			<!-- users countries bar chart -->
 			<div class="row">
-				<div class="col-md-12">					
+				<div class="col-md-12">
 					<div class="inview" id="users-countries-bar-chart"></div>
 				</div>
 			</div>
 			<!-- row users countries bar chart -->
-			
+
 		</div> <!-- container -->
-		
+
 	</body>
 </html>
