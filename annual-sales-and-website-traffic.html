@@ -354,8 +354,8 @@
 							startAngle: 180,
 							type: "doughnut",
 							dataPoints: [
-								{ y: 1921757, name: "Returning", color: "#c70000" },
-								{ y: 5765279, name: "New", color: "#424242", exploded: true }
+								{ y: 1921757, name: "Total Infections", color: "#c70000" },
+								{ y: 5765279, name: "Tests Conducted", color: "#424242", exploded: true }
 							]
 						}
 					]
@@ -393,8 +393,8 @@
 						{
 							color: "#424242",
 							legendMarkerType: "square",
-							legendText: "NEW",
-							name: "NEW",
+							legendText: "Tests Conducted",
+							name: "Tests Conducted",
 							showInLegend: true,
 							type: "spline",
 							dataPoints: [
@@ -415,8 +415,8 @@
 						{
 							color: "#c70000",
 							legendMarkerType: "square",
-							legendText: "RETURNING",
-							name: "RETURNING",
+							legendText: "Total Infections",
+							name: "Total Infections",
 							showInLegend: true,
 							type: "spline",
 							dataPoints: [
@@ -443,7 +443,8 @@
 					backgroundColor: "transparent",
 					axisX: {
 						labelFontColor: "#f7f6f6",
-						labelFontSize: 18,
+						labelFontSize: 12,
+            labelAngle: 0,
 						lineThickness: 0,
 						tickThickness: 0
 					},
@@ -470,16 +471,21 @@
 							indexLabelFontFamily: "calibri",
 							indexLabelFontSize: 18,
 							indexLabelPlacement: "outside",
-							type: "bar",
+							type: "column",
 							dataPoints: [
-								{ y: 2,  indexLabel: "2%",  label: "Others" },
-								{ y: 4,  indexLabel: "4%",  label: "Japan" },
-								{ y: 5,  indexLabel: "5%",  label: "India" },
-								{ y: 12, indexLabel: "12%", label: "Netherlands" },
-								{ y: 9,  indexLabel: "9%",  label: "France" },
-								{ y: 10, indexLabel: "10%", label: "Spain" },
-								{ y: 14, indexLabel: "14%", label: "Germany" },
-								{ y: 44, indexLabel: "44%", label: "United States" }
+								{ y: 10,  indexLabel: "2%",  label: "East Macedonia & Thrace" },
+								{ y: 2,  indexLabel: "4%",  label: "Central Macedonia" },
+                { y: 2,  indexLabel: "4%",  label: "Epirus" },
+                { y: 2,  indexLabel: "4%",  label: "Thessaly" },
+                { y: 2,  indexLabel: "4%",  label: "Ionian Islands" },
+                { y: 2,  indexLabel: "4%",  label: "West Greece" },
+                { y: 2,  indexLabel: "4%",  label: "Central Greece" },
+								{ y: 2,  indexLabel: "5%",  label: "Attica" },
+								{ y: 2, indexLabel: "12%", label: "Peloponnese" },
+								{ y: 2,  indexLabel: "9%",  label: "North Aegean" },
+								{ y: 4, indexLabel: "10%", label: "South Aegean" },
+								{ y: 8, indexLabel: "14%", label: "Crete" },
+								{ y: 60, indexLabel: "44%", label: "West Macedonia" }
 							]
 						}
 					]
