@@ -373,6 +373,8 @@
 					axisY: {
 						gridThickness: 0,
 						labelFontColor: "#bbbbbb",
+            logarithmic: true,
+            title: "Number of people (Log)",
 						lineColor: "#bbbbbb"
 					},
 					legend: {
@@ -396,7 +398,7 @@
 							legendText: "Tests Conducted",
 							name: "Tests Conducted",
 							showInLegend: true,
-							type: "spline",
+							type: "line",
 							dataPoints: [
 								{ x: new Date("1 Jan 2015"), y: 325799 },
 								{ x: new Date("1 Feb 2015"), y: 401837 },
@@ -412,13 +414,35 @@
 								{ x: new Date("1 Dec 2015"), y: 618231 }
 							]
 						},
+            {
+							color: "#424242",
+							legendMarkerType: "square",
+							legendText: "Deaths",
+							name: "Deaths",
+							showInLegend: true,
+							type: "line",
+							dataPoints: [
+								{ x: new Date("1 Jan 2015"), y: 500 },
+								{ x: new Date("1 Feb 2015"), y: 600 },
+								{ x: new Date("1 Mar 2015"), y: 700 },
+								{ x: new Date("1 Apr 2015"), y: 32063 },
+								{ x: new Date("1 May 2015"), y: 87684 },
+								{ x: new Date("1 Jun 2015"), y: 76797 },
+								{ x: new Date("1 Jul 2015"), y: 46756 },
+								{ x: new Date("1 Aug 2015"), y: 37186 },
+								{ x: new Date("1 Sep 2015"), y: 97813 },
+								{ x: new Date("1 Oct 2015"), y: 63133 },
+								{ x: new Date("1 Nov 2015"), y: 95657 },
+								{ x: new Date("1 Dec 2015"), y: 18231 }
+							]
+						},
 						{
 							color: "#c70000",
 							legendMarkerType: "square",
 							legendText: "Total Infections",
 							name: "Total Infections",
 							showInLegend: true,
-							type: "spline",
+							type: "line",
 							dataPoints: [
 								{ x: new Date("1 Jan 2015"), y: 108599 },
 								{ x: new Date("1 Feb 2015"), y: 133945 },
@@ -530,23 +554,23 @@
 			<h5 class="m-t-1">Total Confirmed Cases: <span class="tag tag-success" id="revenue-tag">$15,341,110</span></h5>
 			<hr class="m-t-2">
 
-			<h3>Regions with most cases</h3>
+			<h3>Overview</h3>
 
 			<!-- sales doughnut charts -->
 			<div class="row">
 				<div class="col-md-4">
 					<div class="inview" id="sales-doughnut-chart-us"></div>
-					<h3 class="align-center">United States</h3>
+					<h3 class="align-center">Infected</h3>
 				</div>
 
 				<div class="col-md-4">
 					<div class="inview" id="sales-doughnut-chart-nl"></div>
-					<h3 class="align-center">Netherlands</h3>
+					<h3 class="align-center">Herd immunity</h3>
 				</div>
 
 				<div class="col-md-4">
 					<div class="inview" id="sales-doughnut-chart-de"></div>
-					<h3 class="align-center">Germany</h3>
+					<h3 class="align-center">Fatality</h3>
 				</div>
 			</div>
 			<!-- row sales doughnt charts -->
