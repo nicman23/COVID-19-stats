@@ -71,11 +71,6 @@
 				margin-top: 2rem;
 				width: 100%;
 			}
-      #users-age-bar-chart {
-				height: 360px;
-				margin-top: 2rem;
-				width: 100%;
-			}
 		</style>
 
 		<!-- Scripts -->
@@ -519,70 +514,7 @@
 						}
 					]
 				});
-        // CanvasJS bar chart to show country wise annual users percentage
-        var usersAgeBarChart = new CanvasJS.Chart("users-age-bar-chart", {
-          animationEnabled: true,
-          backgroundColor: "transparent",
-          axisX: {
-            labelFontColor: "#f7f6f6",
-            labelFontSize: 12,
-            labelAngle: 0,
-            lineThickness: 0,
-            tickThickness: 0
-          },
-          axisY: {
-            gridThickness: 0,
-            lineThickness: 0,
-            tickThickness: 0,
-            valueFormatString: " "
 
-          },
-          toolTip: {
-            backgroundColor: "#ffffff",
-            borderThickness: 0,
-            cornerRadius: 0,
-            fontColor: "#424242",
-            contentFormatter: function (e) {
-              return e.entries[0].dataPoint.label + ": " +  CanvasJS.formatNumber(Math.round(e.entries[0].dataPoint.y / 100 * totalUsers), '###,###'); // calculating and showing country wise number of users inside tooltip
-            }
-          },
-          data: [{
-		type: "column",
-		showInLegend: true,
-		name: "Infections",
-		color: "grey",
-		dataPoints: [
-      { y: 22, label: "0-17" },
-			{ y: 16, label: "18-39" },
-			{ y: 22, label: "40-64" },
-			{ y: 29, label: "65+" }
-		]
-	},
-	{
-		type: "column",
-		showInLegend: true,
-		name: "Critical",
-		color: "blue",
-		dataPoints: [
-			{ y: 212, label: "0-17" },
-			{ y: 186, label: "18-39" },
-			{ y: 272, label: "40-64" },
-			{ y: 299, label: "65+" }
-		]
-	},
-	{
-		type: "column",
-		showInLegend: true,
-		name: "Death",
-		color: "red",
-		dataPoints: [
-      { y: 112, label: "0-17" },
-			{ y: 86, label: "18-39" },
-			{ y: 172, label: "40-64" },
-			{ y: 199, label: "65+" }
-		]
-	}]
-        });
 				jQuery.scrollSpeed(100, 400); // for smooth mouse wheel scrolling
 
 				// jQuery.inview plugin
@@ -605,10 +537,8 @@
 								break;
 							case "users-spline-chart": usersSplineChart.render();
 								break;
-							case "users-countries-bar-chart": usersAgeBarChart.render();
+							case "users-countries-bar-chart": usersCountriesBarChart.render();
 								break;
-              case "users-age-bar-chart": usersCountriesBarChart.render();
-  							break;
 						}
 					}
 				});
@@ -653,8 +583,6 @@
 					<div class="card card-block">
 						<h5 class="card-title">Total infections</h5>
 						<h2>38,435,184</h2>
-            <h6>Change 14 days - x%</h6>
-            <h6>Change 30 days - y%</h6>
 						<div class="inview" id="page-views-spline-area-chart"></div>
 					</div>
 				</div>
@@ -663,8 +591,6 @@
 					<div class="card card-block">
 						<h5 class="card-title">Critical</h5>
 						<h2 >320,151</h2>
-            <h6>Change 14 days - x%</h6>
-            <h6>Change 30 days - y%</h6>
 						<div class="inview" id="orders-spline-area-chart"></div>
 					</div>
 				</div>
@@ -673,8 +599,6 @@
 					<div class="card card-block">
 						<h5 class="card-title">Deaths</h5>
 						<h2>$15,341,110</h2>
-            <h6>Change 14 days - x%</h6>
-            <h6>Change 30 days - y%</h6>
 						<div class="inview" id="revenue-spline-area-chart"></div>
 					</div>
 				</div>
@@ -683,7 +607,7 @@
 
 			<hr>
 
-			<h3>Total infections - Tests Conducted - Deaths</h3>
+			<h3>Total infections - Tests Conducted</h3>
 
 			<!-- users doughnut and spline chart -->
 			<div class="row">
@@ -699,7 +623,7 @@
 
 			<hr>
 
-			<h3>Infections by region</h3>
+			<h3>Cases by region</h3>
 
 			<!-- users countries bar chart -->
 			<div class="row">
@@ -708,12 +632,7 @@
 				</div>
 			</div>
 			<!-- row users countries bar chart -->
-      <h3>Age distribution</h3>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="inview" id="users-age-bar-chart"></div>
-        </div>
-      </div>
+
 		</div> <!-- container -->
 
 	</body>
