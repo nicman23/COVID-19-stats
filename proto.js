@@ -410,6 +410,8 @@ class covid {
 }
 const population = 10720000;
 var inf_per_chart;
+var herd_chart;
+var fatality_chart;
 
 const covidInst = new covid();
 window.onload = function () {
@@ -425,12 +427,29 @@ window.onload = function () {
     inf_per_chart.render();
     this.allDaily = await this.per_day_data(this.all)
   })
+  covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
+    this.all = await this.ignore_early_dates(data.cases)
+    herd_chart = this.doughnutChart("herd-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (population*0.7))*10000) / 10000)
+    herd_chart.render();
+    this.allDaily = await this.per_day_data(this.all)
+  })
+  covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
+    this.all = await this.ignore_early_dates(data.cases)
+    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (this.all[this.all.length-1].confirmed))*10000) / 10000)
+    console.log(this.all[this.all.length-1].deaths )
+    fatality_chart.render();
+    //this.allDaily = await this.per_day_data(this.all)
+  })
 }
 
 $('.inview').one('inview', function (e, isInView) {
   if (isInView) {
     switch (this.id) {
       case "infected-doughnut-chart": inf_per_chart.render();
+        break;
+      case "herd-doughnut-chart": herd_chart.render();
+        break;
+      case "fatality-doughnut-chart": fatality_chart.render();
         break;
 //       case "sales-doughnut-chart-nl": salesDoughnutChartNL.render();
 //         break;
