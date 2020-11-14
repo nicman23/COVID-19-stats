@@ -435,7 +435,7 @@ window.onload = function () {
   })
   covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
     this.all = await this.ignore_early_dates(data.cases)
-    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (this.all[this.all.length-1].confirmed))*10000) / 10000)
+    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*10000) / 10000)
     console.log(this.all[this.all.length-1].deaths )
     fatality_chart.render();
     //this.allDaily = await this.per_day_data(this.all)
