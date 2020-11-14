@@ -14,18 +14,15 @@ class covid {
   ignore_early_dates(arr = this.data) {
     for (var i = 0; i < arr.length; i++) {
       if (this.start_int === int_from_date(arr[i].date)) {
-      	this.data = arr.splice(i,arr.length);
-        this.ready = true;
+      	return arr.splice(i,arr.length);
       }
     }
   }
 
-  per_day_data(arr = this.data, arr2 = []) {
+  per_day_data(arr, arr2 = []) {
     for (var i = 0; i < arr.length; i++) {
       if (i === arr.length -1) {
-      	this.daily_data = arr2
-        this.ready = true;
-        break
+      	return arr2
       } else if (i === 0) {
         arr2[i] = []
         Object.keys(arr[i]).forEach(function(z) {
@@ -51,16 +48,24 @@ class covid {
     return arr2;
   }
 
-  async fetch(url,call) {
-  	const actualdata = await $.ajax({
+  fetchWrap(data,call,rando = Math.random().toString(36).substr(2, 5)) {
+    this[rando] = eval(call)
+    this[rando](data)
+    delete(this[rando])
+  }
+
+  fetch(url, call) {
+    this.asd = true
+    var actualthis = this
+  	$.ajax({
       url: url,
       type: 'get',
       dataType: 'json',
       cache: false,
-      async:true,
+      success: function(data) {
+        actualthis.fetchWrap(data,call.toString())
+      }
     });
-    this.data = actualdata;
-    return eval(call);
   }
 
   draw_chart(arr) {
@@ -69,7 +74,8 @@ class covid {
     this.canvas.render()
   }
   doughnutChart(id,percentage) {
-    this.canvas = new CanvasJS.Chart(id, {
+    console.log(percentage)
+    return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
       title: {
@@ -402,55 +408,29 @@ class covid {
     });
   }
 }
+const population = 10720000;
+var inf_per_chart;
+
+const covidInst = new covid();
 window.onload = function () {
-  const chart1 = new covid();
-  chart1.fetch('https://covid-19-greece.herokuapp.com/all',
-   'this.ignore_early_dates(this.data.cases)')
-  fetchinterval1 = setInterval(function(){
-    if (chart1.ready === true) {
-      console.log(chart1.data)
-      chart1.ready = false
-      chart1.per_day_data()
-      clearInterval(fetchinterval1)
-      datainterval1 = setInterval(function(){
-        if (chart1.ready === true) {
-          chart1.ready = false
-          console.log(chart1.daily_data)
-          clearInterval(datainterval1)
-        }
-      },50)
-    }
-  },50)
+  covidInst.fetch('https://covid-19-greece.herokuapp.com/regions-history', async (data) => {
+    this.regions = await data["regions-history"];
+    this.regionsDaily = await this.per_day_data(this.regions);
+  })
 
-
-  //firstchart.doughnutChart("infected-doughnut-chart")
-  const chart2 = new covid();
-  chart2.fetch('https://covid-19-greece.herokuapp.com/regions-history',
-   'this.per_day_data(this.data["regions-history"])')
-  fetchinterval2 = setInterval(function(){
-    if (chart2.ready === true) {
-      console.log(chart2.daily_data)
-      chart2.ready = false
-      clearInterval(fetchinterval2)
-      // datainterval2 = setInterval(function(){
-      //   if (chart2.ready === true) {
-      //     chart2.ready = false
-      //     console.log(chart2.daily_data)
-      //     clearInterval(datainterval2)
-      //   }
-      // },50)
-    }
-  },100)
-
-  //firstchart.render()
-  // firstchart.render()
+  covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
+    this.all = await this.ignore_early_dates(data.cases)
+    inf_per_chart = this.doughnutChart("infected-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / population)*10000) / 10000)
+    console.log(this.all[this.all.length-1].confirmed )
+    inf_per_chart.render();
+    this.allDaily = await this.per_day_data(this.all)
+  })
 }
-
 
 $('.inview').one('inview', function (e, isInView) {
   if (isInView) {
     switch (this.id) {
-      case "infected-doughnut-chart": firstchart.render();
+      case "infected-doughnut-chart": inf_per_chart.render();
         break;
 //       case "sales-doughnut-chart-nl": salesDoughnutChartNL.render();
 //         break;
