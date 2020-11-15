@@ -34,6 +34,13 @@ class covid {
     }
   }
 
+  split_total_daily_data(arr, arr2 = []) {
+    for (var i = 0; i < arr.length; i++) {
+      arr2.push({x: new Date(arr[i].date), y: arr[i].confirmed});
+    }
+    return arr2;
+  }
+
   day_data(arr, prev_arr, arr2 =[]) {
     var actualthis = this
     Object.keys(arr).forEach(function(z) {
@@ -74,7 +81,6 @@ class covid {
     this.canvas.render()
   }
   doughnutChart(id,percentage) {
-    console.log(percentage)
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
@@ -107,14 +113,15 @@ class covid {
     });
   }
   splineArea(id,dataPoints) {
+    console.log(dataPoints[0].x,dataPoints[dataPoints.length-1].x)
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
       axisX: {
         gridThickness: 0,
         lineThickness: 0,
-        maximum: new Date("1 Dec 2015"),
-        minimum: new Date("1 Jan 2015"),
+        minimum: dataPoints[0].x,
+        maximum: dataPoints[dataPoints.length-1].x,
         tickLength: 0,
         valueFormatString: " "
       },
@@ -144,37 +151,37 @@ class covid {
     });
   }
 
-  totalGraph() {
+  totalGraph(id,dataPoints) {
     // CanvasJS doughnut chart to show annual users - new and returning
-    var usersDoughnutChart = new CanvasJS.Chart("users-doughnut-chart", {
-      animationEnabled: true,
-      backgroundColor: "transparent",
-      toolTip: {
-        backgroundColor: "#000000",
-        borderThickness: 2,
-        cornerRadius: 0,
-        fontColor: "#ffffff",
-        contentFormatter: function (e) {
-          return e.entries[0].dataPoint.name + ": " + CanvasJS.formatNumber(e.entries[0].dataPoint.y, '###,###') + " - " + Math.round(e.entries[0].dataPoint.y / totalUsers * 100) + "%"; // calcuting and showing percentage of users inside tooltip
-        }
-      },
-      data: [
-        {
-          innerRadius: "82%",
-          radius: "100%",
-          showInLegend: false,
-          startAngle: 180,
-          type: "doughnut",
-          dataPoints: [
-            { y: 1921757, name: "Total Infections", color: "#c70000" },
-            { y: 5765279, name: "Tests Conducted", color: "#424242", exploded: true }
-          ]
-        }
-      ]
-    });
+    // var usersDoughnutChart = new CanvasJS.Chart("users-doughnut-chart", {
+    //   animationEnabled: true,
+    //   backgroundColor: "transparent",
+    //   toolTip: {
+    //     backgroundColor: "#000000",
+    //     borderThickness: 2,
+    //     cornerRadius: 0,
+    //     fontColor: "#ffffff",
+    //     contentFormatter: function (e) {
+    //       return e.entries[0].dataPoint.name + ": " + CanvasJS.formatNumber(e.entries[0].dataPoint.y, '###,###') + " - " + Math.round(e.entries[0].dataPoint.y / totalUsers * 100) + "%"; // calcuting and showing percentage of users inside tooltip
+    //     }
+    //   },
+    //   data: [
+    //     {
+    //       innerRadius: "82%",
+    //       radius: "100%",
+    //       showInLegend: false,
+    //       startAngle: 180,
+    //       type: "doughnut",
+    //       dataPoints: [
+    //         { y: 1921757, name: "Total Infections", color: "#c70000" },
+    //         { y: 5765279, name: "Tests Conducted", color: "#424242", exploded: true }
+    //       ]
+    //     }
+    //   ]
+    // });
 
     // CanvasJS spline chart to show users - new and returning from Jan 2015 - Dec 2015
-    return new CanvasJS.Chart("users-spline-chart", {
+    return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
       axisX: {
@@ -211,20 +218,7 @@ class covid {
           name: "Tests Conducted",
           showInLegend: true,
           type: "line",
-          dataPoints: [
-            { x: new Date("1 Jan 2015"), y: 325799 },
-            { x: new Date("1 Feb 2015"), y: 401837 },
-            { x: new Date("1 Mar 2015"), y: 482323 },
-            { x: new Date("1 Apr 2015"), y: 332063 },
-            { x: new Date("1 May 2015"), y: 387684 },
-            { x: new Date("1 Jun 2015"), y: 476797 },
-            { x: new Date("1 Jul 2015"), y: 546756 },
-            { x: new Date("1 Aug 2015"), y: 437186 },
-            { x: new Date("1 Sep 2015"), y: 597813 },
-            { x: new Date("1 Oct 2015"), y: 563133 },
-            { x: new Date("1 Nov 2015"), y: 595657 },
-            { x: new Date("1 Dec 2015"), y: 618231 }
-          ]
+          dataPoints: dataPoints[0]
         },
         {
           color: "#424242",
@@ -233,20 +227,7 @@ class covid {
           name: "Deaths",
           showInLegend: true,
           type: "line",
-          dataPoints: [
-            { x: new Date("1 Jan 2015"), y: 500 },
-            { x: new Date("1 Feb 2015"), y: 600 },
-            { x: new Date("1 Mar 2015"), y: 700 },
-            { x: new Date("1 Apr 2015"), y: 32063 },
-            { x: new Date("1 May 2015"), y: 87684 },
-            { x: new Date("1 Jun 2015"), y: 76797 },
-            { x: new Date("1 Jul 2015"), y: 46756 },
-            { x: new Date("1 Aug 2015"), y: 37186 },
-            { x: new Date("1 Sep 2015"), y: 97813 },
-            { x: new Date("1 Oct 2015"), y: 63133 },
-            { x: new Date("1 Nov 2015"), y: 95657 },
-            { x: new Date("1 Dec 2015"), y: 18231 }
-          ]
+          dataPoints: dataPoints[1]
         },
         {
           color: "#c70000",
@@ -255,27 +236,14 @@ class covid {
           name: "Total Infections",
           showInLegend: true,
           type: "line",
-          dataPoints: [
-            { x: new Date("1 Jan 2015"), y: 108599 },
-            { x: new Date("1 Feb 2015"), y: 133945 },
-            { x: new Date("1 Mar 2015"), y: 160774 },
-            { x: new Date("1 Apr 2015"), y: 110688 },
-            { x: new Date("1 May 2015"), y: 129228 },
-            { x: new Date("1 Jun 2015"), y: 158932 },
-            { x: new Date("1 Jul 2015"), y: 182252 },
-            { x: new Date("1 Aug 2015"), y: 145728 },
-            { x: new Date("1 Sep 2015"), y: 199271 },
-            { x: new Date("1 Oct 2015"), y: 187711 },
-            { x: new Date("1 Nov 2015"), y: 198552 },
-            { x: new Date("1 Dec 2015"), y: 206077 }
-          ]
+          dataPoints: dataPoints[2]
         }
       ]
     });
   }
 
   stateChart(id,dataPoints) {
-    new CanvasJS.Chart("users-countries-bar-chart", {
+    new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
       axisX: {
@@ -309,21 +277,7 @@ class covid {
           indexLabelFontSize: 18,
           indexLabelPlacement: "outside",
           type: "column",
-          dataPoints: [
-            { y: 10,  indexLabel: "2%",  label: "East Macedonia & Thrace" },
-            { y: 2,  indexLabel: "4%",  label: "Central Macedonia" },
-            { y: 2,  indexLabel: "4%",  label: "Epirus" },
-            { y: 2,  indexLabel: "4%",  label: "Thessaly" },
-            { y: 2,  indexLabel: "4%",  label: "Ionian Islands" },
-            { y: 2,  indexLabel: "4%",  label: "West Greece" },
-            { y: 2,  indexLabel: "4%",  label: "Central Greece" },
-            { y: 2,  indexLabel: "5%",  label: "Attica" },
-            { y: 2, indexLabel: "12%", label: "Peloponnese" },
-            { y: 2,  indexLabel: "9%",  label: "North Aegean" },
-            { y: 4, indexLabel: "10%", label: "South Aegean" },
-            { y: 8, indexLabel: "14%", label: "Crete" },
-            { y: 60, indexLabel: "44%", label: "West Macedonia" }
-          ]
+          dataPoints: dataPoints
         }
       ]
     });
@@ -361,36 +315,21 @@ class covid {
         showInLegend: true,
         name: "Infections",
         color: "grey",
-        dataPoints: [
-          { y: 22, label: "0-17" },
-          { y: 16, label: "18-39" },
-          { y: 22, label: "40-64" },
-          { y: 29, label: "65+" }
-        ]
+        dataPoints: dataPoint[0]
       },
       {
         type: "column",
         showInLegend: true,
         name: "Critical",
         color: "blue",
-        dataPoints: [
-          { y: 212, label: "0-17" },
-          { y: 186, label: "18-39" },
-          { y: 272, label: "40-64" },
-          { y: 299, label: "65+" }
-        ]
+        dataPoints: dataPoint[1]
       },
       {
         type: "column",
         showInLegend: true,
         name: "Death",
         color: "red",
-        dataPoints: [
-        { y: 112, label: "0-17" },
-        { y: 86, label: "18-39" },
-        { y: 172, label: "40-64" },
-        { y: 199, label: "65+" }
-        ]
+        dataPoints: dataPoint[2]
       }]
     });
   }
@@ -399,6 +338,7 @@ const population = 10720000;
 var inf_per_chart;
 var herd_chart;
 var fatality_chart;
+var spline_Area;
 
 const covidInst = new covid();
 window.onload = function () {
@@ -409,14 +349,15 @@ window.onload = function () {
 
   covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
     this.all = await this.ignore_early_dates(data.cases)
-    inf_per_chart = this.doughnutChart("infected-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / population)*1000) / 1000)
-    console.log(this.all[this.all.length-1].confirmed )
+    inf_per_chart = this.doughnutChart("infected-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / population)*1000) / 1000);
     inf_per_chart.render();
-    herd_chart = this.doughnutChart("herd-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (population*0.7))*1000) / 1000)
+    herd_chart = this.doughnutChart("herd-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (population*0.7))*1000) / 1000);
     herd_chart.render();
-    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*1000) / 1000)
+    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*1000) / 1000);
     fatality_chart.render();
-    this.allDaily = await this.per_day_data(this.all)
+    this.allDaily = await this.per_day_data(this.all);
+    spline_Area = this.splineArea('users-countries-bar-chart',this.split_total_daily_data(this.allDaily))
+    spline_Area.render()
   })
 
 
