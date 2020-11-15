@@ -46,6 +46,12 @@ class covid {
     }
     return arr2;
   }
+  split_total_daily_data_3(arr, arr2 = []) {
+    for (var i = 0; i < arr.length; i++) {
+      arr2.push({x: new Date(arr[i].date), y: arr[i].intensive_care});
+    }
+    return arr2;
+  }
 
   day_data(arr, prev_arr, arr2 =[]) {
     var actualthis = this
@@ -351,6 +357,12 @@ window.onload = function () {
   covidInst.fetch('https://covid-19-greece.herokuapp.com/regions-history', async (data) => {
     this.regions = await data["regions-history"];
     this.regionsDaily = await this.per_day_data(this.regions);
+  }),
+  covidInst.fetch('https://covid-19-greece.herokuapp.com/intensive-care', async (data) => {
+    this.cases = await data["cases"];
+    spline_Area = this.splineArea("critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
+    console.log(this.cases)
+    spline_Area.render()
   })
 
   covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
