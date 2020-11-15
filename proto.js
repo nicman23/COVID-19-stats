@@ -34,6 +34,28 @@ class covid {
     }
   }
 
+<<<<<<< Updated upstream
+=======
+  split_total_daily_data(arr, arr2 = []) {
+    for (var i = 0; i < arr.length; i++) {
+      arr2.push({x: new Date(arr[i].date), y: arr[i].confirmed});
+    }
+    return arr2;
+  }
+  split_total_daily_data_2(arr, arr2 = []) {
+    for (var i = 0; i < arr.length; i++) {
+      arr2.push({x: new Date(arr[i].date), y: arr[i].deaths});
+    }
+    return arr2;
+  }
+  split_total_daily_data_3(arr, arr2 = []) {
+    for (var i = 0; i < arr.length; i++) {
+      arr2.push({x: arr[i].region_en_name, y: arr[i].region_cases});
+      console.log(arr2)
+    }
+    return arr2;
+  }
+>>>>>>> Stashed changes
   day_data(arr, prev_arr, arr2 =[]) {
     var actualthis = this
     Object.keys(arr).forEach(function(z) {
@@ -406,6 +428,7 @@ const population = 10720000;
 var inf_per_chart;
 var herd_chart;
 var fatality_chart;
+<<<<<<< Updated upstream
 
 // Total infections per location
 var loc_chart;
@@ -426,15 +449,28 @@ var inf_5;
 var infd_5;
 var inf_6;
 var infd_6;
+=======
+var spline_Area;
+var state_Chart;
+>>>>>>> Stashed changes
 
 const covidInst = new covid();
 window.onload = function () {
   covidInst.fetch('https://covid-19-greece.herokuapp.com/regions-history', async (data) => {
     this.regions = await data["regions-history"];
     this.regionsDaily = await this.per_day_data(this.regions);
+<<<<<<< Updated upstream
     east_mac = this.regions[this.regions.length-1].regions[0].region_cases
     cent_mac = this.regions[this.regions.length-2].regions[0].region_cases
 
+=======
+  //  state_Chart = this.stateChart("users-countries-bar-chart",this.all.region_cases)
+
+    state_Chart = this.stateChart("users-countries-bar-chart",this.split_total_daily_data_3((this.regions[this.regions.length-1].regions)))
+  //  console.log(this.regions[this.regions.length-1].regions)
+  //  console.log(this.regions[this.regions.length-1].regions[0].region_en_name)
+  //  state_Chart.render()
+>>>>>>> Stashed changes
   })
 
   covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
