@@ -80,7 +80,7 @@ class covid {
       backgroundColor: "transparent",
       title: {
         fontColor: "#848484",
-        fontSize: 70,
+        fontSize: 68,
         horizontalAlign: "center",
         text: percentage + "%",
         verticalAlign: "center"
@@ -113,8 +113,8 @@ class covid {
       axisX: {
         gridThickness: 0,
         lineThickness: 0,
-        maximum: new Date("1 Dec 2015"),
-        minimum: new Date("1 Jan 2015"),
+        maximum: new Date(infd_1),
+        minimum: new Date(infd_6),
         tickLength: 0,
         valueFormatString: " "
       },
@@ -139,18 +139,12 @@ class covid {
           markerSize: 0,
           type: "splineArea",
           dataPoints: [
-            { x: new Date("1 Jan 2015"), y: 2171991 },
-            { x: new Date("1 Feb 2015"), y: 2678910 },
-            { x: new Date("1 Mar 2015"), y: 3215487 },
-            { x: new Date("1 Apr 2015"), y: 2213754 },
-            { x: new Date("1 May 2015"), y: 2584561 },
-            { x: new Date("1 Jun 2015"), y: 3178647 },
-            { x: new Date("1 Jul 2015"), y: 3645041 },
-            { x: new Date("1 Aug 2015"), y: 2914568 },
-            { x: new Date("1 Sep 2015"), y: 3985421 },
-            { x: new Date("1 Oct 2015"), y: 3754219 },
-            { x: new Date("1 Nov 2015"), y: 3971047 },
-            { x: new Date("1 Dec 2015"), y: 4121538 }
+            { x: new Date(infd_6), y: inf_6 },
+            { x: new Date(infd_5), y: inf_5 },
+            { x: new Date(infd_4), y: inf_4 },
+            { x: new Date(infd_3), y: inf_3 },
+            { x: new Date(infd_2), y: inf_2 },
+            { x: new Date(infd_1), y: inf_1 }
           ]
         }
       ]
@@ -413,11 +407,34 @@ var inf_per_chart;
 var herd_chart;
 var fatality_chart;
 
+// Total infections per location
+var loc_chart;
+var east_mac; // East Macedonia and Thrace
+var cent_mac // Central Macedonia
+
+// Total Infections Chart
+var inf_chart;
+var inf_1;
+var infd_1
+var inf_2;
+var infd_2;
+var inf_3;
+var infd_3;
+var inf_4;
+var infd_4;
+var inf_5;
+var infd_5;
+var inf_6;
+var infd_6;
+
 const covidInst = new covid();
 window.onload = function () {
   covidInst.fetch('https://covid-19-greece.herokuapp.com/regions-history', async (data) => {
     this.regions = await data["regions-history"];
     this.regionsDaily = await this.per_day_data(this.regions);
+    east_mac = this.regions[this.regions.length-1].regions[0].region_cases
+    cent_mac = this.regions[this.regions.length-2].regions[0].region_cases
+
   })
 
   covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
@@ -430,7 +447,24 @@ window.onload = function () {
     fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*1000) / 1000)
     fatality_chart.render();
     this.allDaily = await this.per_day_data(this.all)
+
+// This needs to go inside a loop ofc
+    inf_1 = this.all[this.all.length-1].confirmed;
+    infd_1 = this.all[this.all.length-1].date;
+    inf_2 = this.all[this.all.length-14].confirmed
+    infd_2 = this.all[this.all.length-14].date
+    inf_3 = this.all[this.all.length-28].confirmed
+    infd_3 = this.all[this.all.length-28].date
+    inf_4 = this.all[this.all.length-42].confirmed
+    infd_4 = this.all[this.all.length-42].date
+    inf_5 = this.all[this.all.length-56].confirmed
+    infd_5 = this.all[this.all.length-56].date
+    inf_6 = this.all[this.all.length-70].confirmed
+    infd_6 = this.all[this.all.length-70].date
+    inf_chart = this.splineArea("inf-chart",data)
+    inf_chart.render();
   })
+
 
 
 }
@@ -443,6 +477,8 @@ $('.inview').one('inview', function (e, isInView) {
       case "herd-doughnut-chart": herd_chart.render();
         break;
       case "fatality-doughnut-chart": fatality_chart.render();
+        break;
+      case "inf-chart": inf_chart.render();
         break;
 //       case "sales-doughnut-chart-nl": salesDoughnutChartNL.render();
 //         break;
