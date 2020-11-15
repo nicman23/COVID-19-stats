@@ -106,8 +106,8 @@ class covid {
       ]
     });
   }
-  splineArea() {
-    return new CanvasJS.Chart("page-views-spline-area-chart", {
+  splineArea(id,dataPoints) {
+    return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
       axisX: {
@@ -138,20 +138,7 @@ class covid {
           lineThickness: 3,
           markerSize: 0,
           type: "splineArea",
-          dataPoints: [
-            { x: new Date("1 Jan 2015"), y: 2171991 },
-            { x: new Date("1 Feb 2015"), y: 2678910 },
-            { x: new Date("1 Mar 2015"), y: 3215487 },
-            { x: new Date("1 Apr 2015"), y: 2213754 },
-            { x: new Date("1 May 2015"), y: 2584561 },
-            { x: new Date("1 Jun 2015"), y: 3178647 },
-            { x: new Date("1 Jul 2015"), y: 3645041 },
-            { x: new Date("1 Aug 2015"), y: 2914568 },
-            { x: new Date("1 Sep 2015"), y: 3985421 },
-            { x: new Date("1 Oct 2015"), y: 3754219 },
-            { x: new Date("1 Nov 2015"), y: 3971047 },
-            { x: new Date("1 Dec 2015"), y: 4121538 }
-          ]
+          dataPoints: dataPoints
         }
       ]
     });
