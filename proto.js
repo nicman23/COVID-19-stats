@@ -40,6 +40,12 @@ class covid {
     }
     return arr2;
   }
+  split_total_daily_data_2(arr, arr2 = []) {
+    for (var i = 0; i < arr.length; i++) {
+      arr2.push({x: new Date(arr[i].date), y: arr[i].deaths});
+    }
+    return arr2;
+  }
 
   day_data(arr, prev_arr, arr2 =[]) {
     var actualthis = this
@@ -356,8 +362,10 @@ window.onload = function () {
     fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*1000) / 1000);
     fatality_chart.render();
     this.allDaily = await this.per_day_data(this.all);
-    spline_Area = this.splineArea('users-countries-bar-chart',this.split_total_daily_data(this.allDaily))
-    // spline_Area.render()
+    spline_Area = this.splineArea("total-infections-spline-area-chart",this.split_total_daily_data(this.all))
+    spline_Area.render()
+    spline_Area = this.splineArea("total-deaths-spline-area-chart",this.split_total_daily_data_2(this.all))
+    spline_Area.render()
   })
 
   $('.inview').one('inview', function (e, isInView) {
