@@ -357,39 +357,38 @@ window.onload = function () {
     fatality_chart.render();
     this.allDaily = await this.per_day_data(this.all);
     spline_Area = this.splineArea('users-countries-bar-chart',this.split_total_daily_data(this.allDaily))
-    spline_Area.render()
+    // spline_Area.render()
   })
 
-
-}
-
-$('.inview').one('inview', function (e, isInView) {
-  if (isInView) {
-    switch (this.id) {
-      case "infected-doughnut-chart": inf_per_chart.render();
+  $('.inview').one('inview', function (e, isInView) {
+    if (isInView) {
+      console.log(isInView)
+      switch (this.id) {
+        // case "infected-doughnut-chart": inf_per_chart.render();
+        // break;
+        // case "herd-doughnut-chart": herd_chart.render();
+        // break;
+        // case "fatality-doughnut-chart": fatality_chart.render();
+        // break;
+        //       case "sales-doughnut-chart-nl": salesDoughnutChartNL.render();
+        //         break;
+        //       case "sales-doughnut-chart-de": salesDoughnutChartDE.render();
+        //         break;
+        //       case "page-views-spline-area-chart": pageViewsSplineAreaChart.render();
+        //         break;
+        //       case "orders-spline-area-chart": ordersSplineAreaChart.render();
+        //         break;
+        //       case "revenue-spline-area-chart": revenueSplineAreaChart.render();
+        //         break;
+        //       case "users-doughnut-chart": usersDoughnutChart.render();
+        //         break;
+        //       case "users-spline-chart": usersSplineChart.render();
+        //         break;
+        case "users-countries-bar-chart": spline_Area.render();
         break;
-      case "herd-doughnut-chart": herd_chart.render();
-        break;
-      case "fatality-doughnut-chart": fatality_chart.render();
-        break;
-//       case "sales-doughnut-chart-nl": salesDoughnutChartNL.render();
-//         break;
-//       case "sales-doughnut-chart-de": salesDoughnutChartDE.render();
-//         break;
-//       case "page-views-spline-area-chart": pageViewsSplineAreaChart.render();
-//         break;
-//       case "orders-spline-area-chart": ordersSplineAreaChart.render();
-//         break;
-//       case "revenue-spline-area-chart": revenueSplineAreaChart.render();
-//         break;
-//       case "users-doughnut-chart": usersDoughnutChart.render();
-//         break;
-//       case "users-spline-chart": usersSplineChart.render();
-//         break;
-//       case "users-countries-bar-chart": usersAgeBarChart.render();
-//         break;
-//       case "users-age-bar-chart": usersCountriesBarChart.render();
-//         break;
+        //       case "users-age-bar-chart": usersCountriesBarChart.render();
+        //         break;
+      }
     }
-  }
-});
+  });
+}
