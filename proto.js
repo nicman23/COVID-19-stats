@@ -372,6 +372,9 @@ window.onload = function () {
   covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
     this.all = await this.ignore_early_dates(data.cases)
     //
+    document.getElementById("new-cases").innerHTML = this.all[this.all.length-1].confirmed-this.all[this.all.length-2].confirmed;
+    document.getElementById("last-updated").innerHTML = "Last updated: "+this.all[this.all.length-1].date
+
     document.getElementById("total-infections").innerHTML = this.all[this.all.length-1].confirmed;
     document.getElementById("total-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.all[this.all.length-1].confirmed)*100)/this.all[this.all.length-14].confirmed)*10/10+"%";
     document.getElementById("total-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.all[this.all.length-1].confirmed)*100)/this.all[this.all.length-30].confirmed)*10/10+"%";
