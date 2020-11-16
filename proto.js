@@ -361,12 +361,24 @@ window.onload = function () {
   covidInst.fetch('https://covid-19-greece.herokuapp.com/intensive-care', async (data) => {
     this.cases = await data["cases"];
     spline_Area = this.splineArea("critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
-    console.log(this.cases)
+    //
+    document.getElementById("critical-infections").innerHTML = this.cases[this.cases.length-1].intensive_care;
+    document.getElementById("critical-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-14].intensive_care)*10/10+"%";
+    document.getElementById("critical-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-30].intensive_care)*10/10+"%";
+    //
     spline_Area.render()
   })
 
   covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
     this.all = await this.ignore_early_dates(data.cases)
+    //
+    document.getElementById("total-infections").innerHTML = this.all[this.all.length-1].confirmed;
+    document.getElementById("total-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.all[this.all.length-1].confirmed)*100)/this.all[this.all.length-14].confirmed)*10/10+"%";
+    document.getElementById("total-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.all[this.all.length-1].confirmed)*100)/this.all[this.all.length-30].confirmed)*10/10+"%";
+    document.getElementById("total-deaths").innerHTML = this.all[this.all.length-1].deaths;
+    document.getElementById("total-deaths-14").innerHTML = "Change 14 days: " + Math.floor(((this.all[this.all.length-1].deaths)*100)/this.all[this.all.length-14].deaths)*10/10+"%";
+    document.getElementById("total-deaths-30").innerHTML = "Change 30 days: " + Math.floor(((this.all[this.all.length-1].deaths)*100)/this.all[this.all.length-30].deaths)*10/10+"%";
+    //
     inf_per_chart = this.doughnutChart("infected-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / population)*1000) / 1000);
     inf_per_chart.render();
     herd_chart = this.doughnutChart("herd-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (population*0.7))*1000) / 1000);
