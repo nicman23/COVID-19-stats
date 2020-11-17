@@ -262,7 +262,7 @@ class covid {
   }
 
   stateChart(id,dataPoints) {
-    new CanvasJS.Chart(id, {
+    return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
       axisX: {
@@ -354,7 +354,6 @@ window.onload = function () {
     this.regions = await data["regions-history"];
     this.regionsDaily = await this.per_day_data(this.regions);
     state_Chart = this.stateChart("users-countries-bar-chart",this.split_total_daily_data_4(this.regions[this.regions.length-1].regions))
-    state_Chart.render()
   }),
   covidInst.fetch('https://covid-19-greece.herokuapp.com/intensive-care', async (data) => {
     this.cases = await data["cases"];
@@ -432,8 +431,8 @@ window.onload = function () {
         //         break;
         //       case "users-spline-chart": usersSplineChart.render();
         //         break;
-        //       case "users-countries-bar-chart": state_Chart.render();
-        //         break;
+               case "users-countries-bar-chart": state_Chart.render();
+                 break;
         //       case "users-age-bar-chart": usersCountriesBarChart.render();
         //         break;
       }
