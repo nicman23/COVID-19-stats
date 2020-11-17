@@ -56,9 +56,9 @@ class covid {
     for (var i = 1; i < arr.length +1; i++) {
       arr2.push({y: arr[i-1].region_cases, label:arr[i-1].region_en_name});
     }
-
     return arr2;
   }
+
 
   day_data(arr, prev_arr, arr2 =[]) {
     var actualthis = this
@@ -107,7 +107,9 @@ class covid {
         text: "",
       },
       data: [{
-		type: "pie",
+		type: "doughnut",
+    indexLabelFontSize: 10,
+    indexLabelFontColor: "#fff",
 		startAngle: 240,
 		yValueFormatString: "##0.00\"%\"",
 		indexLabel: "{label} {y}",
@@ -374,10 +376,22 @@ window.onload = function () {
   covidInst.fetch('https://covid-19-greece.herokuapp.com/gender-distribution', async (data) => {
     this.gender_percentages = await data["gender_percentages"];
     var sex_dist = [];
-    sex_dist.push({y: this.gender_percentages.total_males_percentage, label: "Males Percentage"});
-    sex_dist.push({y: this.gender_percentages.total_females_percentage, label: "Females Percentage"});
+    sex_dist.push({y: this.gender_percentages.total_males_percentage, label: "Males"});
+    sex_dist.push({y: this.gender_percentages.total_females_percentage, label: "Females"});
     state_Chart = this.doughnutSexChart("sex-doughnut-chart",sex_dist)
     state_Chart.render()
+  }),
+
+  covidInst.fetch('https://covid-19-greece.herokuapp.com/gender-age-distribution', async (data) => {
+    this.total_age_gender_distribution = await data["total_age_gender_distribution"];
+    //console.log(this.total_age_gender_distribution.females.cases["0-17"])
+    var age_gender_f_cases = [];
+    var keys = ["0-17","18-39","40-64","65+"]
+    for (var i=0 ; i <keys.length; i++){
+      age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases[keys[i]], label: "Female"})
+    }
+    console.log(age_gender_f_cases)
+
   }),
   covidInst.fetch('https://covid-19-greece.herokuapp.com/age-distribution', async (data) => {
     this.age_distribution = await data["age_distribution"];
@@ -406,7 +420,6 @@ window.onload = function () {
     age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["18-39"]/total)*100, label: "18-39"});
     age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["40-64"]/total)*100, label: "40-64"});
     age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["65+"]/total)*100, label: "65+"});
-    console.log(age_dist_deaths)
     state_Chart = this.doughnutSexChart("age-deaths-doughnut-chart",age_dist_deaths)
     state_Chart.render()
   }),
