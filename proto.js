@@ -99,6 +99,22 @@ class covid {
   render() {
     this.canvas.render()
   }
+  doughnutSexChart(id,dataPoints) {
+    return new CanvasJS.Chart(id, {
+      animationEnabled: true,
+      backgroundColor: "transparent",
+      title: {
+        text: "",
+      },
+      data: [{
+		type: "pie",
+		startAngle: 240,
+		yValueFormatString: "##0.00\"%\"",
+		indexLabel: "{label} {y}",
+		dataPoints: dataPoints
+	}]
+    });
+  }
   doughnutChart(id,percentage) {
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
@@ -355,11 +371,47 @@ window.onload = function () {
     this.regionsDaily = await this.per_day_data(this.regions);
     state_Chart = this.stateChart("users-countries-bar-chart",this.split_total_daily_data_4(this.regions[this.regions.length-1].regions))
   }),
+  covidInst.fetch('https://covid-19-greece.herokuapp.com/gender-distribution', async (data) => {
+    this.gender_percentages = await data["gender_percentages"];
+    var sex_dist = [];
+    sex_dist.push({y: this.gender_percentages.total_males_percentage, label: "Males Percentage"});
+    sex_dist.push({y: this.gender_percentages.total_females_percentage, label: "Females Percentage"});
+    state_Chart = this.doughnutSexChart("sex-doughnut-chart",sex_dist)
+    state_Chart.render()
+  }),
+  covidInst.fetch('https://covid-19-greece.herokuapp.com/age-distribution', async (data) => {
+    this.age_distribution = await data["age_distribution"];
+    //console.log(this.age_distribution.total_age_groups.cases["0-17"])
+    var age_dist_cases = [];
+    var total = this.age_distribution.total_age_groups.cases["0-17"]+this.age_distribution.total_age_groups.cases["18-39"]+this.age_distribution.total_age_groups.cases["40-64"]+this.age_distribution.total_age_groups.cases["65+"]
+    age_dist_cases.push({y: (this.age_distribution.total_age_groups.cases["0-17"]/total)*100, label: "0-17"});
+    age_dist_cases.push({y: (this.age_distribution.total_age_groups.cases["18-39"]/total)*100, label: "18-39"});
+    age_dist_cases.push({y: (this.age_distribution.total_age_groups.cases["40-64"]/total)*100, label: "40-64"});
+    age_dist_cases.push({y: (this.age_distribution.total_age_groups.cases["65+"]/total)*100, label: "65+"});
+    state_Chart = this.doughnutSexChart("age-cases-doughnut-chart",age_dist_cases)
+    state_Chart.render()
+
+    var age_dist_critical = [];
+    var total = this.age_distribution.total_age_groups.critical["0-17"]+this.age_distribution.total_age_groups.critical["18-39"]+this.age_distribution.total_age_groups.critical["40-64"]+this.age_distribution.total_age_groups.critical["65+"]
+    age_dist_critical.push({y: (this.age_distribution.total_age_groups.critical["0-17"]/total)*100, label: "0-17"});
+    age_dist_critical.push({y: (this.age_distribution.total_age_groups.critical["18-39"]/total)*100, label: "18-39"});
+    age_dist_critical.push({y: (this.age_distribution.total_age_groups.critical["40-64"]/total)*100, label: "40-64"});
+    age_dist_critical.push({y: (this.age_distribution.total_age_groups.critical["65+"]/total)*100, label: "65+"});
+    state_Chart = this.doughnutSexChart("age-critical-doughnut-chart",age_dist_critical)
+    state_Chart.render()
+
+    var age_dist_deaths = [];
+    var total = this.age_distribution.total_age_groups.deaths["0-17"]+this.age_distribution.total_age_groups.deaths["18-39"]+this.age_distribution.total_age_groups.deaths["40-64"]+this.age_distribution.total_age_groups.deaths["65+"]
+    age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["0-17"]/total)*100, label: "0-17"});
+    age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["18-39"]/total)*100, label: "18-39"});
+    age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["40-64"]/total)*100, label: "40-64"});
+    age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["65+"]/total)*100, label: "65+"});
+    console.log(age_dist_deaths)
+    state_Chart = this.doughnutSexChart("age-deaths-doughnut-chart",age_dist_deaths)
+    state_Chart.render()
+  }),
   covidInst.fetch('https://covid-19-greece.herokuapp.com/intensive-care', async (data) => {
     this.cases = await data["cases"];
-
-
-
     spline_Area = this.splineArea("daily-critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
     spline_Area.render()
     document.getElementById("daily-critical-infections").innerHTML = this.cases[this.cases.length-1].intensive_care;
