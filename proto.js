@@ -360,6 +360,8 @@ window.onload = function () {
   }),
   covidInst.fetch('https://covid-19-greece.herokuapp.com/intensive-care', async (data) => {
     this.cases = await data["cases"];
+
+
     spline_Area = this.splineArea("critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
     //
     document.getElementById("critical-infections").innerHTML = this.cases[this.cases.length-1].intensive_care;
@@ -367,6 +369,14 @@ window.onload = function () {
     document.getElementById("critical-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-30].intensive_care)*10/10+"%";
     //
     spline_Area.render()
+
+    this.allDaily = await this.per_day_data(this.cases);
+    spline_Area = this.splineArea("daily-critical-infections-area-chart",this.split_total_daily_data_3(this.allDaily))
+    spline_Area.render()
+    document.getElementById("daily-critical-infections").innerHTML = this.allDaily[this.allDaily.length-1].intensive_care;
+    document.getElementById("daily-critical-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].intensive_care)*100)/this.allDaily[this.allDaily.length-14].intensive_care)*10/10+"%";
+    document.getElementById("daily-critical-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].intensive_care)*100)/this.allDaily[this.allDaily.length-30].intensive_care)*10/10+"%";
+
   })
 
   covidInst.fetch('https://covid-19-greece.herokuapp.com/all', async (data) => {
@@ -386,19 +396,25 @@ window.onload = function () {
     inf_per_chart.render();
     herd_chart = this.doughnutChart("herd-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (population*0.7))*1000) / 1000);
     herd_chart.render();
-    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*1000) / 1000);
+    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*100000) / 1000);
     fatality_chart.render();
     this.allDaily = await this.per_day_data(this.all);
     //
     document.getElementById("daily-infections").innerHTML = this.allDaily[this.allDaily.length-1].confirmed;
     document.getElementById("daily-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].confirmed)*100)/this.allDaily[this.allDaily.length-14].confirmed)*10/10+"%";
     document.getElementById("daily-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].confirmed)*100)/this.allDaily[this.allDaily.length-30].confirmed)*10/10+"%";
+    document.getElementById("daily-infections").innerHTML = this.allDaily[this.allDaily.length-1].confirmed;
+    document.getElementById("daily-deaths").innerHTML = this.allDaily[this.allDaily.length-1].deaths;
+    document.getElementById("daily-deaths-14").innerHTML = "Change 14 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].deaths)*100)/this.allDaily[this.allDaily.length-14].deaths)*10/10+"%";
+    document.getElementById("daily-deaths-30").innerHTML = "Change 30 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].deaths)*100)/this.allDaily[this.allDaily.length-30].deaths)*10/10+"%";
     //
     spline_Area = this.splineArea("total-infections-spline-area-chart",this.split_total_daily_data(this.all))
     spline_Area.render()
     spline_Area = this.splineArea("total-deaths-spline-area-chart",this.split_total_daily_data_2(this.all))
     spline_Area.render()
     spline_Area = this.splineArea("daily-infections-spline-area-chart",this.split_total_daily_data(this.allDaily))
+    spline_Area.render()
+    spline_Area = this.splineArea("daily-deaths-spline-area-chart",this.split_total_daily_data_2(this.allDaily))
     spline_Area.render()
   })
 
