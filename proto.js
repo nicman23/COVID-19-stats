@@ -361,7 +361,7 @@ window.onload = function () {
   covidInst.fetch('https://covid-19-greece.herokuapp.com/intensive-care', async (data) => {
     this.cases = await data["cases"];
 
-
+/*
     spline_Area = this.splineArea("critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
     //
     document.getElementById("critical-infections").innerHTML = this.cases[this.cases.length-1].intensive_care;
@@ -369,13 +369,13 @@ window.onload = function () {
     document.getElementById("critical-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-30].intensive_care)*10/10+"%";
     //
     spline_Area.render()
+*/
 
-    this.allDaily = await this.per_day_data(this.cases);
-    spline_Area = this.splineArea("daily-critical-infections-area-chart",this.split_total_daily_data_3(this.allDaily))
+    spline_Area = this.splineArea("daily-critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
     spline_Area.render()
-    document.getElementById("daily-critical-infections").innerHTML = this.allDaily[this.allDaily.length-1].intensive_care;
-    document.getElementById("daily-critical-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].intensive_care)*100)/this.allDaily[this.allDaily.length-14].intensive_care)*10/10+"%";
-    document.getElementById("daily-critical-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].intensive_care)*100)/this.allDaily[this.allDaily.length-30].intensive_care)*10/10+"%";
+    document.getElementById("daily-critical-infections").innerHTML = this.cases[this.cases.length-1].intensive_care;
+    document.getElementById("daily-critical-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-14].intensive_care)*10/10+"%";
+    document.getElementById("daily-critical-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-30].intensive_care)*10/10+"%";
 
   })
 
