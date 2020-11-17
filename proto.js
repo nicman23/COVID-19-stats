@@ -389,9 +389,16 @@ window.onload = function () {
     fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*1000) / 1000);
     fatality_chart.render();
     this.allDaily = await this.per_day_data(this.all);
+    //
+    document.getElementById("daily-infections").innerHTML = this.allDaily[this.allDaily.length-1].confirmed;
+    document.getElementById("daily-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].confirmed)*100)/this.allDaily[this.allDaily.length-14].confirmed)*10/10+"%";
+    document.getElementById("daily-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].confirmed)*100)/this.allDaily[this.allDaily.length-30].confirmed)*10/10+"%";
+    //
     spline_Area = this.splineArea("total-infections-spline-area-chart",this.split_total_daily_data(this.all))
     spline_Area.render()
     spline_Area = this.splineArea("total-deaths-spline-area-chart",this.split_total_daily_data_2(this.all))
+    spline_Area.render()
+    spline_Area = this.splineArea("daily-infections-spline-area-chart",this.split_total_daily_data(this.allDaily))
     spline_Area.render()
   })
 

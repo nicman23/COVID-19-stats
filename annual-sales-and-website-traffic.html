@@ -57,7 +57,7 @@
 				width: 100%;
 			}
 
-			#total-infections-spline-area-chart, #total-deaths-spline-area-chart, #critical-infections-area-chart {
+			#total-infections-spline-area-chart, #total-deaths-spline-area-chart, #critical-infections-area-chart, #daily-infections-spline-area-chart {
 				height: 200px;
 				width: 100%;
 			}
@@ -118,43 +118,76 @@
 			</div>
 			<!-- row sales doughnt charts -->
 
-			<hr>
+
 
 			<!-- stats spline area charts -->
-			<div class="row">
-				<div class="col-md-4">
-					<div class="card card-block">
-						<center><h5 class="card-title">Total infections</h5></center>
-						<center><h2 id="total-infections"></h2></center>
+
+			<!-- row stats spline area charts -->
+      <hr>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card card-block">
+            <center><h5 class="card-title">Total infections</h5></center>
+            <center><h2 id="total-infections"></h2></center>
             <center><h6 id="total-infections-14"></h6></center>
             <center><h6 id="total-infections-30"></h6></center>
-						<div class="inview" id="total-infections-spline-area-chart"></div>
-					</div>
-				</div>
+            <div class="inview" id="total-infections-spline-area-chart"></div>
+          </div>
+        </div>
 
-				<div class="col-md-4">
-					<div class="card card-block">
-						<center><h5 class="card-title">Critical</h5></center>
-						<center><h2 id="critical-infections"></h2></center>
+        <div class="col-md-4">
+          <div class="card card-block">
+            <center><h5 class="card-title">Critical</h5></center>
+            <center><h2 id="critical-infections"></h2></center>
             <center><h6 id="critical-infections-14"></h6></center>
             <center><h6 id="critical-infections-30"></h6></center>
-						<div class="inview" id="critical-infections-area-chart"></div>
-					</div>
-				</div>
+            <div class="inview" id="critical-infections-area-chart"></div>
+          </div>
+        </div>
 
-				<div class="col-md-4">
-					<div class="card card-block">
-						<center><h5 class="card-title">Deaths</h5></center>
-						<center><h2 id="total-deaths"></h2></center>
+        <div class="col-md-4">
+          <div class="card card-block">
+            <center><h5 class="card-title">Deaths</h5></center>
+            <center><h2 id="total-deaths"></h2></center>
             <center><h6 id="total-deaths-14"></h6></center>
             <center><h6 id="total-deaths-30"></h6></center>
-						<div class="inview" id="total-deaths-spline-area-chart"></div>
-					</div>
-				</div>
-			</div>
-			<!-- row stats spline area charts -->
+            <div class="inview" id="total-deaths-spline-area-chart"></div>
+          </div>
+        </div>
+      </div>
+<hr>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card card-block">
+            <center><h5 class="card-title">Daily infections</h5></center>
+            <center><h2 id="daily-infections"></h2></center>
+            <center><h6 id="daily-infections-14"></h6></center>
+            <center><h6 id="daily-infections-30"></h6></center>
+            <div class="inview" id="daily-infections-spline-area-chart"></div>
+          </div>
+        </div>
 
-			<hr>
+        <div class="col-md-4">
+          <div class="card card-block">
+            <center><h5 class="card-title">Critical</h5></center>
+            <center><h2 id="daily-critical-infections"></h2></center>
+            <center><h6 id="daily-critical-infections-14"></h6></center>
+            <center><h6 id="daily-critical-infections-30"></h6></center>
+            <div class="inview" id="daily-critical-infections-area-chart"></div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card card-block">
+            <center><h5 class="card-title">Deaths</h5></center>
+            <center><h2 id="daily-deaths"></h2></center>
+            <center><h6 id="daily-deaths-14"></h6></center>
+            <center><h6 id="daily-deaths-30"></h6></center>
+            <div class="inview" id="daily-deaths-spline-area-chart"></div>
+          </div>
+        </div>
+      </div>
+      <hr>
 
 			<h3>Total infections - Tests Conducted - Deaths</h3>
 
@@ -223,6 +256,7 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
               <ul class="social-icons">
                 <li><a class="linkedin" href="#"><i class="fa fa-github"></i></a></li>
+                <li><a class="linkedin" href="#"><i class="fa fa-twitter"></i></a></li>
               </ul>
             </div>
           </div>
