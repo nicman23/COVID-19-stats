@@ -52,6 +52,13 @@ class covid {
     }
     return arr2;
   }
+  split_total_daily_data_4(arr, arr2 = []) {
+    for (var i = 1; i < arr.length +1; i++) {
+      arr2.push({y: arr[i-1].region_cases, label:arr[i-1].region_en_name});
+    }
+
+    return arr2;
+  }
 
   day_data(arr, prev_arr, arr2 =[]) {
     var actualthis = this
@@ -125,7 +132,7 @@ class covid {
     });
   }
   splineArea(id,dataPoints) {
-    console.log(dataPoints[0].x,dataPoints[dataPoints.length-1].x)
+
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
@@ -255,7 +262,7 @@ class covid {
   }
 
   stateChart(id,dataPoints) {
-    new CanvasJS.Chart(id, {
+    return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
       axisX: {
@@ -272,22 +279,10 @@ class covid {
         valueFormatString: " "
 
       },
-      toolTip: {
-        backgroundColor: "#ffffff",
-        borderThickness: 0,
-        cornerRadius: 0,
-        fontColor: "#424242",
-        contentFormatter: function (e) {
-          return e.entries[0].dataPoint.label + ": " +  CanvasJS.formatNumber(Math.round(e.entries[0].dataPoint.y / 100 * totalUsers), '###,###'); // calculating and showing country wise number of users inside tooltip
-        }
-      },
+
       data: [
         {
           color: "#424242",
-          indexLabelFontColor: "#f7f6f6",
-          indexLabelFontFamily: "calibri",
-          indexLabelFontSize: 18,
-          indexLabelPlacement: "outside",
           type: "column",
           dataPoints: dataPoints
         }
@@ -351,25 +346,19 @@ var inf_per_chart;
 var herd_chart;
 var fatality_chart;
 var spline_Area;
+var state_Chart;
 
 const covidInst = new covid();
 window.onload = function () {
   covidInst.fetch('https://covid-19-greece.herokuapp.com/regions-history', async (data) => {
     this.regions = await data["regions-history"];
     this.regionsDaily = await this.per_day_data(this.regions);
+    state_Chart = this.stateChart("users-countries-bar-chart",this.split_total_daily_data_4(this.regions[this.regions.length-1].regions))
   }),
   covidInst.fetch('https://covid-19-greece.herokuapp.com/intensive-care', async (data) => {
     this.cases = await data["cases"];
 
-/*
-    spline_Area = this.splineArea("critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
-    //
-    document.getElementById("critical-infections").innerHTML = this.cases[this.cases.length-1].intensive_care;
-    document.getElementById("critical-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-14].intensive_care)*10/10+"%";
-    document.getElementById("critical-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-30].intensive_care)*10/10+"%";
-    //
-    spline_Area.render()
-*/
+
 
     spline_Area = this.splineArea("daily-critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
     spline_Area.render()
@@ -420,12 +409,12 @@ window.onload = function () {
 
   $('.inview').one('inview', function (e, isInView) {
     if (isInView) {
-      console.log(isInView)
+
       switch (this.id) {
         // case "infected-doughnut-chart": inf_per_chart.render();
         // break;
-        // case "herd-doughnut-chart": herd_chart.render();
-        // break;
+         case "herd-doughnut-chart": herd_chart.render();
+         break;
         // case "fatality-doughnut-chart": fatality_chart.render();
         // break;
         //       case "sales-doughnut-chart-nl": salesDoughnutChartNL.render();
@@ -442,8 +431,8 @@ window.onload = function () {
         //         break;
         //       case "users-spline-chart": usersSplineChart.render();
         //         break;
-        case "users-countries-bar-chart": spline_Area.render();
-        break;
+               case "users-countries-bar-chart": state_Chart.render();
+                 break;
         //       case "users-age-bar-chart": usersCountriesBarChart.render();
         //         break;
       }
