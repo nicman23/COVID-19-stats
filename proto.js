@@ -20,8 +20,8 @@ class covid {
   }
 
   per_day_data(arr, arr2 = []) {
-    for (var i = 0; i < arr.length; i++) {
-      if (i === arr.length -1) {
+    for (var i = 0; i < arr.length +1; i++) {
+      if (i === arr.length ) {
       	return arr2
       } else if (i === 0) {
         arr2[i] = []
@@ -35,20 +35,20 @@ class covid {
   }
 
   split_total_daily_data(arr, arr2 = []) {
-    for (var i = 0; i < arr.length; i++) {
-      arr2.push({x: new Date(arr[i].date), y: arr[i].confirmed});
+    for (var i = 1; i < arr.length +1; i++) {
+      arr2.push({x: new Date(arr[i-1].date), y: arr[i-1].confirmed});
     }
     return arr2;
   }
   split_total_daily_data_2(arr, arr2 = []) {
-    for (var i = 0; i < arr.length; i++) {
-      arr2.push({x: new Date(arr[i].date), y: arr[i].deaths});
+    for (var i = 1; i < arr.length +1; i++) {
+      arr2.push({x: new Date(arr[i-1].date), y: arr[i-1].deaths});
     }
     return arr2;
   }
   split_total_daily_data_3(arr, arr2 = []) {
-    for (var i = 0; i < arr.length; i++) {
-      arr2.push({x: new Date(arr[i].date), y: arr[i].intensive_care});
+    for (var i = 1; i < arr.length +1; i++) {
+      arr2.push({x: new Date(arr[i-1].date), y: arr[i-1].intensive_care});
     }
     return arr2;
   }
