@@ -62,8 +62,8 @@
 				width: 100%;
 			}
 
-			#users-doughnut-chart, #users-spline-chart {
-				height: 280px;
+			#users-doughnut-chart, #users-spline-chart, #female-cases, #female-critical, #female-deaths, #male-cases, #male-critical, #male-deaths {
+				height: 250px;
 				margin-top: 2rem;
 				width: 100%;
 			}
@@ -178,6 +178,37 @@
           <div class="inview" id="age-deaths-doughnut-chart"></div>
         </div>
       </div>
+      <center><h3>Female Data</h3></center>
+      <div class="row">
+        <div class="col-md-4">
+          <h5 class="align-center">Infections</h5>
+          <div class="inview" id="female-cases"></div>
+        </div>
+        <div class="col-md-4">
+          <h5 class="align-center">Critical</h5>
+          <div class="inview" id="female-critical"></div>
+        </div>
+      <div class="col-md-4">
+        <h5 class="align-center">Deaths</h5>
+        <div class="inview" id="female-deaths"></div>
+      </div>
+    </div>
+    <center><h3>Male Data</h3></center>
+    <div class="row">
+      <div class="col-md-4">
+        <h5 class="align-center">Infections</h5>
+        <div class="inview" id="male-cases"></div>
+      </div>
+      <div class="col-md-4">
+        <h5 class="align-center">Critical</h5>
+        <div class="inview" id="male-critical"></div>
+      </div>
+    <div class="col-md-4">
+      <h5 class="align-center">Deaths</h5>
+      <div class="inview" id="male-deaths"></div>
+    </div>
+  </div>
+
 <hr>
 
       <center><h1>Daily Data</h1></center>

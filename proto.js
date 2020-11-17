@@ -149,6 +149,35 @@ class covid {
       ]
     });
   }
+  ColumnChart(id,dataPoints) {
+    return new CanvasJS.Chart(id, {
+      animationEnabled: true,
+      backgroundColor: "transparent",
+      axisX: {
+        labelFontColor: "#f7f6f6",
+        labelFontSize: 12,
+        labelAngle: 0,
+        lineThickness: 0,
+        tickThickness: 0
+      },
+      axisY: {
+        gridThickness: 0,
+        lineThickness: 0,
+        tickThickness: 0,
+        valueFormatString: " "
+
+      },
+
+      data: [
+        {
+          color: "#424242",
+          type: "column",
+          dataPoints: dataPoints
+        }
+      ]
+    });
+  }
+
   splineArea(id,dataPoints) {
 
     return new CanvasJS.Chart(id, {
@@ -384,13 +413,54 @@ window.onload = function () {
 
   covidInst.fetch('https://covid-19-greece.herokuapp.com/gender-age-distribution', async (data) => {
     this.total_age_gender_distribution = await data["total_age_gender_distribution"];
-    //console.log(this.total_age_gender_distribution.females.cases["0-17"])
+
     var age_gender_f_cases = [];
-    var keys = ["0-17","18-39","40-64","65+"]
-    for (var i=0 ; i <keys.length; i++){
-      age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases[keys[i]], label: "Female"})
-    }
-    console.log(age_gender_f_cases)
+    age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases["0-17"], label: "0-17"})
+    age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases["18-39"], label: "18-39"})
+    age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases["40-64"], label: "40-64"})
+    age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases["65+"], label: "65+"})
+    spline_Area = this.ColumnChart("female-cases",age_gender_f_cases)
+    spline_Area.render();
+
+    var age_gender_f_critical = [];
+    age_gender_f_critical.push({y: this.total_age_gender_distribution.females.critical["0-17"], label: "0-17"})
+    age_gender_f_critical.push({y: this.total_age_gender_distribution.females.critical["18-39"], label: "18-39"})
+    age_gender_f_critical.push({y: this.total_age_gender_distribution.females.critical["40-64"], label: "40-64"})
+    age_gender_f_critical.push({y: this.total_age_gender_distribution.females.critical["65+"], label: "65+"})
+    spline_Area = this.ColumnChart("female-critical",age_gender_f_critical)
+    spline_Area.render();
+
+    var age_gender_f_deaths = [];
+    age_gender_f_deaths.push({y: this.total_age_gender_distribution.females.deaths["0-17"], label: "0-17"})
+    age_gender_f_deaths.push({y: this.total_age_gender_distribution.females.deaths["18-39"], label: "18-39"})
+    age_gender_f_deaths.push({y: this.total_age_gender_distribution.females.deaths["40-64"], label: "40-64"})
+    age_gender_f_deaths.push({y: this.total_age_gender_distribution.females.deaths["65+"], label: "65+"})
+    spline_Area = this.ColumnChart("female-deaths",age_gender_f_deaths)
+    spline_Area.render();
+
+    var age_gender_m_cases = [];
+    age_gender_m_cases.push({y: this.total_age_gender_distribution.males.cases["0-17"], label: "0-17"})
+    age_gender_m_cases.push({y: this.total_age_gender_distribution.males.cases["18-39"], label: "18-39"})
+    age_gender_m_cases.push({y: this.total_age_gender_distribution.males.cases["40-64"], label: "40-64"})
+    age_gender_m_cases.push({y: this.total_age_gender_distribution.males.cases["65+"], label: "65+"})
+    spline_Area = this.ColumnChart("male-cases",age_gender_m_cases)
+    spline_Area.render();
+
+    var age_gender_m_critical = [];
+    age_gender_m_critical.push({y: this.total_age_gender_distribution.males.critical["0-17"], label: "0-17"})
+    age_gender_m_critical.push({y: this.total_age_gender_distribution.males.critical["18-39"], label: "18-39"})
+    age_gender_m_critical.push({y: this.total_age_gender_distribution.males.critical["40-64"], label: "40-64"})
+    age_gender_m_critical.push({y: this.total_age_gender_distribution.males.critical["65+"], label: "65+"})
+    spline_Area = this.ColumnChart("male-critical",age_gender_m_critical)
+    spline_Area.render();
+
+    var age_gender_m_deaths = [];
+    age_gender_m_deaths.push({y: this.total_age_gender_distribution.males.deaths["0-17"], label: "0-17"})
+    age_gender_m_deaths.push({y: this.total_age_gender_distribution.males.deaths["18-39"], label: "18-39"})
+    age_gender_m_deaths.push({y: this.total_age_gender_distribution.males.deaths["40-64"], label: "40-64"})
+    age_gender_m_deaths.push({y: this.total_age_gender_distribution.males.deaths["65+"], label: "65+"})
+    spline_Area = this.ColumnChart("male-deaths",age_gender_m_deaths)
+    spline_Area.render();
 
   }),
   covidInst.fetch('https://covid-19-greece.herokuapp.com/age-distribution', async (data) => {
