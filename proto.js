@@ -386,7 +386,7 @@ window.onload = function () {
     inf_per_chart.render();
     herd_chart = this.doughnutChart("herd-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (population*0.7))*1000) / 1000);
     herd_chart.render();
-    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*1000) / 1000);
+    fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*100000) / 1000);
     fatality_chart.render();
     this.allDaily = await this.per_day_data(this.all);
     spline_Area = this.splineArea("total-infections-spline-area-chart",this.split_total_daily_data(this.all))
