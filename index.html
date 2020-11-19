@@ -80,7 +80,6 @@
 			}
 		</style>
 
-		<!-- Scripts -->
 		<script src="assets/jquery/jquery-3.1.0.min.js"></script>
 		<script src="assets/tether/tether.min.js"></script>
 		<script src="assets/bootstrap/bootstrap4-alpha3.min.js"></script>
@@ -94,36 +93,26 @@
 		<div class="container">
 			<center><h1>COVID-19 Greece Tracker</h1></center>
 			<center><h5 class="m-t-1">New cases: <span class="tag tag-success" id="new-cases"></span></h5></center>
-      <center><h5 class="m-t-1" id="last-updated">Last updated: test</h5></center>
+      <center><h5 class="m-t-1" id="last-updated">Last updated: </h5></center>
 			<hr class="m-t-2">
-
 			<center><h1>Overview</h1></center>
-
-			<!-- sales doughnut charts -->
 			<div class="row">
 				<div class="col-md-4">
 					<div class="inview" id="infected-doughnut-chart"></div>
 					<h3 class="align-center">Infected *</h3>
 				</div>
-
 				<div class="col-md-4">
 					<div class="inview" id="herd-doughnut-chart"></div>
 					<h3 class="align-center">Herd immunity **</h3>
 				</div>
-
 				<div class="col-md-4">
 					<div class="inview" id="fatality-doughnut-chart"></div>
 					<h3 class="align-center">Fatality</h3>
 				</div>
 			</div>
-			<!-- row sales doughnt charts -->
 
-
-
-			<!-- stats spline area charts -->
-
-			<!-- row stats spline area charts -->
       <hr>
+
       <center><h1>Total Data</h1></center>
       <div class="row">
         <div class="col-md-6">
@@ -135,17 +124,6 @@
             <div class="inview" id="total-infections-spline-area-chart"></div>
           </div>
         </div>
-
-  <!--      <div class="col-md-4">
-          <div class="card card-block">
-            <center><h5 class="card-title">Critical</h5></center>
-            <center><h2 id="critical-infections"></h2></center>
-            <center><h6 id="critical-infections-14"></h6></center>
-            <center><h6 id="critical-infections-30"></h6></center>
-            <div class="inview" id="critical-infections-area-chart"></div>
-          </div>
-        </div>
--->
         <div class="col-md-6">
           <div class="card card-block">
             <center><h5 class="card-title">Deaths</h5></center>
@@ -156,9 +134,9 @@
           </div>
         </div>
       </div>
-
-
+      <br><br><br>
       <center><h3>Age Data</h3></center>
+      <br>
       <div class="row">
         <div class="col-md-4">
           <h5 class="align-center">Infections</h5>
@@ -173,7 +151,9 @@
           <div class="inview" id="age-deaths-doughnut-chart"></div>
         </div>
       </div>
+      <br><br><br>
       <center><h3>Female Data</h3></center>
+      <br>
       <div class="row">
         <div class="col-md-4">
           <h5 class="align-center">Infections</h5>
@@ -188,7 +168,9 @@
         <div class="inview" id="female-deaths"></div>
       </div>
     </div>
+    <br><br><br>
     <center><h3>Male Data</h3></center>
+    <br>
     <div class="row">
       <div class="col-md-4">
         <h5 class="align-center">Infections</h5>
@@ -205,10 +187,12 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <h3 class="align-center">Sex Data</h3>
+      <br><br><br>
+      <h3 class="align-center">Gender Data</h3>
       <div class="inview" id="sex-doughnut-chart"></div>
     </div>
   </div>
+
 <hr>
 
       <center><h1>Daily Data</h1></center>
@@ -222,7 +206,6 @@
             <div class="inview" id="daily-infections-spline-area-chart"></div>
           </div>
         </div>
-
         <div class="col-md-4">
           <div class="card card-block">
             <center><h5 class="card-title">Critical</h5></center>
@@ -232,7 +215,6 @@
             <div class="inview" id="daily-critical-infections-area-chart"></div>
           </div>
         </div>
-
         <div class="col-md-4">
           <div class="card card-block">
             <center><h5 class="card-title">Deaths</h5></center>
@@ -243,60 +225,29 @@
           </div>
         </div>
       </div>
-
+      <br><br><br>
       <center><h3>Region Data - Infections</h3></center>
-
-			<!-- users countries bar chart -->
 			<div class="row">
 				<div class="col-md-12">
 					<div class="inview" id="users-countries-bar-chart"></div>
 				</div>
 			</div>
-      <!--
-			<h3>Total infections - Tests Conducted - Deaths</h3>
-
-
-			<div class="row">
-				<div class="col-lg-3 col-md-4">
-					<div class="inview" id="users-doughnut-chart"></div>
-				</div>
-
-				<div class="col-lg-9 col-md-8">
-					<div class="inview" id="users-spline-chart"></div>
-				</div>
-			</div>
-			 -->
 
 			<hr>
 
-
-			<!--
-      <h3>Age distribution</h3>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="inview" id="users-age-bar-chart"></div>
-        </div>
-      </div>
-		</div>
-   -->
-    <!-- Site footer -->
       <footer class="site-footer">
         <div class="container">
           <div class="row">
             <div class="col-sm-12 col-md-6">
               <h6>About</h6>
-
               <p class="text-justify">COVID-19 Greece Tracker aims to track and visualize the collected data regarding COVID-19 in Greece.
-
               </div>
-
-
             <div class="col-xs-6 col-md-6">
               <h6>Resources</h6>
               <ul class="footer-links">
-                <li><a href="https://el.wikipedia.org/wiki/%CE%94%CE%B7%CE%BC%CE%BF%CE%B3%CF%81%CE%B1%CF%86%CE%AF%CE%B1_%CF%84%CE%B7%CF%82_%CE%95%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1%CF%82#%CE%A0%CE%BB%CE%B7%CE%B8%CF%85%CF%83%CE%BC%CE%B9%CE%B1%CE%BA%CE%AC_%CF%83%CF%84%CE%BF%CE%B9%CF%87%CE%B5%CE%AF%CE%B1_1821-2019">* Population is assumed to be 10.72 million.</a></li>
-                <li><a href="https://www.jhsph.edu/covid-19/articles/achieving-herd-immunity-with-covid19.html">** Herd immunity assumes that 70% of the population has to be infected.</a></li>
-                <li><a href="https://covid-19-greece.herokuapp.com/">Coronavirus Greece API</a></li>
+                <li><a href="https://el.wikipedia.org/wiki/%CE%94%CE%B7%CE%BC%CE%BF%CE%B3%CF%81%CE%B1%CF%86%CE%AF%CE%B1_%CF%84%CE%B7%CF%82_%CE%95%CE%BB%CE%BB%CE%AC%CE%B4%CE%B1%CF%82#%CE%A0%CE%BB%CE%B7%CE%B8%CF%85%CF%83%CE%BC%CE%B9%CE%B1%CE%BA%CE%AC_%CF%83%CF%84%CE%BF%CE%B9%CF%87%CE%B5%CE%AF%CE%B1_1821-2019" target="_blank">* Population is assumed to be 10.72 million.</a></li>
+                <li><a href="https://www.jhsph.edu/covid-19/articles/achieving-herd-immunity-with-covid19.html" target="_blank">** Herd immunity assumes that 70% of the population has to be infected.</a></li>
+                <li><a href="https://covid-19-greece.herokuapp.com/" target="_blank">Coronavirus Greece API</a></li>
               </ul>
             </div>
           </div>
@@ -309,11 +260,9 @@
            <a href="#">COVID 19 Greece</a>.
               </p>
             </div>
-
             <div class="col-md-4 col-sm-6 col-xs-12">
               <ul class="social-icons">
                 <li><a class="linkedin" href="#"><i class="fa fa-github"></i></a></li>
-                <li><a class="linkedin" href="#"><i class="fa fa-twitter"></i></a></li>
               </ul>
             </div>
           </div>

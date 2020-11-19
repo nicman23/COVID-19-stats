@@ -218,35 +218,6 @@ class covid {
   }
 
   totalGraph(id,dataPoints) {
-    // CanvasJS doughnut chart to show annual users - new and returning
-    // var usersDoughnutChart = new CanvasJS.Chart("users-doughnut-chart", {
-    //   animationEnabled: true,
-    //   backgroundColor: "transparent",
-    //   toolTip: {
-    //     backgroundColor: "#000000",
-    //     borderThickness: 2,
-    //     cornerRadius: 0,
-    //     fontColor: "#ffffff",
-    //     contentFormatter: function (e) {
-    //       return e.entries[0].dataPoint.name + ": " + CanvasJS.formatNumber(e.entries[0].dataPoint.y, '###,###') + " - " + Math.round(e.entries[0].dataPoint.y / totalUsers * 100) + "%"; // calcuting and showing percentage of users inside tooltip
-    //     }
-    //   },
-    //   data: [
-    //     {
-    //       innerRadius: "82%",
-    //       radius: "100%",
-    //       showInLegend: false,
-    //       startAngle: 180,
-    //       type: "doughnut",
-    //       dataPoints: [
-    //         { y: 1921757, name: "Total Infections", color: "#c70000" },
-    //         { y: 5765279, name: "Tests Conducted", color: "#424242", exploded: true }
-    //       ]
-    //     }
-    //   ]
-    // });
-
-    // CanvasJS spline chart to show users - new and returning from Jan 2015 - Dec 2015
     return new CanvasJS.Chart(id, {
       animationEnabled: true,
       backgroundColor: "transparent",
@@ -393,7 +364,25 @@ var inf_per_chart;
 var herd_chart;
 var fatality_chart;
 var spline_Area;
+var critical_chart;
 var state_Chart;
+var gender_Chart;
+var total_inf;
+var total_deaths;
+var daily_inf;
+var daily_deaths;
+// Female
+var female_cases_chart;
+var female_critical_chart;
+var female_deaths_chart;
+// Male
+var male_cases_chart;
+var male_critical_chart;
+var male_deaths_chart;
+// Age
+var age_cases_chart;
+var age_critical_chart;
+var age_deaths_chart;
 
 const covidInst = new covid();
 window.onload = function () {
@@ -407,8 +396,7 @@ window.onload = function () {
     var sex_dist = [];
     sex_dist.push({y: this.gender_percentages.total_males_percentage, label: "Males"});
     sex_dist.push({y: this.gender_percentages.total_females_percentage, label: "Females"});
-    state_Chart = this.doughnutSexChart("sex-doughnut-chart",sex_dist)
-    state_Chart.render()
+    gender_Chart = this.doughnutSexChart("sex-doughnut-chart",sex_dist)
   }),
 
   covidInst.fetch('https://covid-19-greece.herokuapp.com/gender-age-distribution', async (data) => {
@@ -419,61 +407,53 @@ window.onload = function () {
     age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases["18-39"], label: "18-39"})
     age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases["40-64"], label: "40-64"})
     age_gender_f_cases.push({y: this.total_age_gender_distribution.females.cases["65+"], label: "65+"})
-    spline_Area = this.ColumnChart("female-cases",age_gender_f_cases)
-    spline_Area.render();
+    female_cases_chart = this.ColumnChart("female-cases",age_gender_f_cases)
 
     var age_gender_f_critical = [];
     age_gender_f_critical.push({y: this.total_age_gender_distribution.females.critical["0-17"], label: "0-17"})
     age_gender_f_critical.push({y: this.total_age_gender_distribution.females.critical["18-39"], label: "18-39"})
     age_gender_f_critical.push({y: this.total_age_gender_distribution.females.critical["40-64"], label: "40-64"})
     age_gender_f_critical.push({y: this.total_age_gender_distribution.females.critical["65+"], label: "65+"})
-    spline_Area = this.ColumnChart("female-critical",age_gender_f_critical)
-    spline_Area.render();
+    female_critical_chart = this.ColumnChart("female-critical",age_gender_f_critical)
 
     var age_gender_f_deaths = [];
     age_gender_f_deaths.push({y: this.total_age_gender_distribution.females.deaths["0-17"], label: "0-17"})
     age_gender_f_deaths.push({y: this.total_age_gender_distribution.females.deaths["18-39"], label: "18-39"})
     age_gender_f_deaths.push({y: this.total_age_gender_distribution.females.deaths["40-64"], label: "40-64"})
     age_gender_f_deaths.push({y: this.total_age_gender_distribution.females.deaths["65+"], label: "65+"})
-    spline_Area = this.ColumnChart("female-deaths",age_gender_f_deaths)
-    spline_Area.render();
+    female_deaths_chart = this.ColumnChart("female-deaths",age_gender_f_deaths)
 
     var age_gender_m_cases = [];
     age_gender_m_cases.push({y: this.total_age_gender_distribution.males.cases["0-17"], label: "0-17"})
     age_gender_m_cases.push({y: this.total_age_gender_distribution.males.cases["18-39"], label: "18-39"})
     age_gender_m_cases.push({y: this.total_age_gender_distribution.males.cases["40-64"], label: "40-64"})
     age_gender_m_cases.push({y: this.total_age_gender_distribution.males.cases["65+"], label: "65+"})
-    spline_Area = this.ColumnChart("male-cases",age_gender_m_cases)
-    spline_Area.render();
+    male_cases_chart = this.ColumnChart("male-cases",age_gender_m_cases)
 
     var age_gender_m_critical = [];
     age_gender_m_critical.push({y: this.total_age_gender_distribution.males.critical["0-17"], label: "0-17"})
     age_gender_m_critical.push({y: this.total_age_gender_distribution.males.critical["18-39"], label: "18-39"})
     age_gender_m_critical.push({y: this.total_age_gender_distribution.males.critical["40-64"], label: "40-64"})
     age_gender_m_critical.push({y: this.total_age_gender_distribution.males.critical["65+"], label: "65+"})
-    spline_Area = this.ColumnChart("male-critical",age_gender_m_critical)
-    spline_Area.render();
+    male_critical_chart = this.ColumnChart("male-critical",age_gender_m_critical)
 
     var age_gender_m_deaths = [];
     age_gender_m_deaths.push({y: this.total_age_gender_distribution.males.deaths["0-17"], label: "0-17"})
     age_gender_m_deaths.push({y: this.total_age_gender_distribution.males.deaths["18-39"], label: "18-39"})
     age_gender_m_deaths.push({y: this.total_age_gender_distribution.males.deaths["40-64"], label: "40-64"})
     age_gender_m_deaths.push({y: this.total_age_gender_distribution.males.deaths["65+"], label: "65+"})
-    spline_Area = this.ColumnChart("male-deaths",age_gender_m_deaths)
-    spline_Area.render();
+    male_deaths_chart = this.ColumnChart("male-deaths",age_gender_m_deaths)
 
   }),
   covidInst.fetch('https://covid-19-greece.herokuapp.com/age-distribution', async (data) => {
     this.age_distribution = await data["age_distribution"];
-    //console.log(this.age_distribution.total_age_groups.cases["0-17"])
     var age_dist_cases = [];
     var total = this.age_distribution.total_age_groups.cases["0-17"]+this.age_distribution.total_age_groups.cases["18-39"]+this.age_distribution.total_age_groups.cases["40-64"]+this.age_distribution.total_age_groups.cases["65+"]
     age_dist_cases.push({y: (this.age_distribution.total_age_groups.cases["0-17"]/total)*100, label: "0-17"});
     age_dist_cases.push({y: (this.age_distribution.total_age_groups.cases["18-39"]/total)*100, label: "18-39"});
     age_dist_cases.push({y: (this.age_distribution.total_age_groups.cases["40-64"]/total)*100, label: "40-64"});
     age_dist_cases.push({y: (this.age_distribution.total_age_groups.cases["65+"]/total)*100, label: "65+"});
-    state_Chart = this.doughnutSexChart("age-cases-doughnut-chart",age_dist_cases)
-    state_Chart.render()
+    age_cases_chart = this.doughnutSexChart("age-cases-doughnut-chart",age_dist_cases)
 
     var age_dist_critical = [];
     var total = this.age_distribution.total_age_groups.critical["0-17"]+this.age_distribution.total_age_groups.critical["18-39"]+this.age_distribution.total_age_groups.critical["40-64"]+this.age_distribution.total_age_groups.critical["65+"]
@@ -481,8 +461,7 @@ window.onload = function () {
     age_dist_critical.push({y: (this.age_distribution.total_age_groups.critical["18-39"]/total)*100, label: "18-39"});
     age_dist_critical.push({y: (this.age_distribution.total_age_groups.critical["40-64"]/total)*100, label: "40-64"});
     age_dist_critical.push({y: (this.age_distribution.total_age_groups.critical["65+"]/total)*100, label: "65+"});
-    state_Chart = this.doughnutSexChart("age-critical-doughnut-chart",age_dist_critical)
-    state_Chart.render()
+    age_critical_chart = this.doughnutSexChart("age-critical-doughnut-chart",age_dist_critical)
 
     var age_dist_deaths = [];
     var total = this.age_distribution.total_age_groups.deaths["0-17"]+this.age_distribution.total_age_groups.deaths["18-39"]+this.age_distribution.total_age_groups.deaths["40-64"]+this.age_distribution.total_age_groups.deaths["65+"]
@@ -490,13 +469,11 @@ window.onload = function () {
     age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["18-39"]/total)*100, label: "18-39"});
     age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["40-64"]/total)*100, label: "40-64"});
     age_dist_deaths.push({y: (this.age_distribution.total_age_groups.deaths["65+"]/total)*100, label: "65+"});
-    state_Chart = this.doughnutSexChart("age-deaths-doughnut-chart",age_dist_deaths)
-    state_Chart.render()
+    age_deaths_chart = this.doughnutSexChart("age-deaths-doughnut-chart",age_dist_deaths)
   }),
   covidInst.fetch('https://covid-19-greece.herokuapp.com/intensive-care', async (data) => {
     this.cases = await data["cases"];
-    spline_Area = this.splineArea("daily-critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
-    spline_Area.render()
+    critical_chart = this.splineArea("daily-critical-infections-area-chart",this.split_total_daily_data_3(this.cases))
     document.getElementById("daily-critical-infections").innerHTML = this.cases[this.cases.length-1].intensive_care;
     document.getElementById("daily-critical-infections-14").innerHTML = "Change 14 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-14].intensive_care)*10/10+"%";
     document.getElementById("daily-critical-infections-30").innerHTML = "Change 30 days: " + Math.floor(((this.cases[this.cases.length-1].intensive_care)*100)/this.cases[this.cases.length-30].intensive_care)*10/10+"%";
@@ -517,11 +494,8 @@ window.onload = function () {
     document.getElementById("total-deaths-30").innerHTML = "Change 30 days: " + Math.floor(((this.all[this.all.length-1].deaths)*100)/this.all[this.all.length-30].deaths)*10/10+"%";
     //
     inf_per_chart = this.doughnutChart("infected-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / population)*1000) / 1000);
-    inf_per_chart.render();
     herd_chart = this.doughnutChart("herd-doughnut-chart", Math.floor((this.all[this.all.length-1].confirmed / (population*0.7))*1000) / 1000);
-    herd_chart.render();
     fatality_chart = this.doughnutChart("fatality-doughnut-chart", Math.floor((this.all[this.all.length-1].deaths / (this.all[this.all.length-1].confirmed))*100000) / 1000);
-    fatality_chart.render();
     this.allDaily = await this.per_day_data(this.all);
     //
     document.getElementById("daily-infections").innerHTML = this.allDaily[this.allDaily.length-1].confirmed;
@@ -532,44 +506,54 @@ window.onload = function () {
     document.getElementById("daily-deaths-14").innerHTML = "Change 14 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].deaths)*100)/this.allDaily[this.allDaily.length-14].deaths)*10/10+"%";
     document.getElementById("daily-deaths-30").innerHTML = "Change 30 days: " + Math.floor(((this.allDaily[this.allDaily.length-1].deaths)*100)/this.allDaily[this.allDaily.length-30].deaths)*10/10+"%";
     //
-    spline_Area = this.splineArea("total-infections-spline-area-chart",this.split_total_daily_data(this.all))
-    spline_Area.render()
-    spline_Area = this.splineArea("total-deaths-spline-area-chart",this.split_total_daily_data_2(this.all))
-    spline_Area.render()
-    spline_Area = this.splineArea("daily-infections-spline-area-chart",this.split_total_daily_data(this.allDaily))
-    spline_Area.render()
-    spline_Area = this.splineArea("daily-deaths-spline-area-chart",this.split_total_daily_data_2(this.allDaily))
-    spline_Area.render()
+    total_inf = this.splineArea("total-infections-spline-area-chart",this.split_total_daily_data(this.all))
+    total_deaths = this.splineArea("total-deaths-spline-area-chart",this.split_total_daily_data_2(this.all))
+    daily_inf = this.splineArea("daily-infections-spline-area-chart",this.split_total_daily_data(this.allDaily))
+    daily_deaths = this.splineArea("daily-deaths-spline-area-chart",this.split_total_daily_data_2(this.allDaily))
   })
 
   $('.inview').one('inview', function (e, isInView) {
     if (isInView) {
 
       switch (this.id) {
-        // case "infected-doughnut-chart": inf_per_chart.render();
-        // break;
+         case "infected-doughnut-chart": inf_per_chart.render();
+         break;
          case "herd-doughnut-chart": herd_chart.render();
          break;
-        // case "fatality-doughnut-chart": fatality_chart.render();
-        // break;
-        //       case "sales-doughnut-chart-nl": salesDoughnutChartNL.render();
-        //         break;
-        //       case "sales-doughnut-chart-de": salesDoughnutChartDE.render();
-        //         break;
-        //       case "page-views-spline-area-chart": pageViewsSplineAreaChart.render();
-        //         break;
-        //       case "orders-spline-area-chart": ordersSplineAreaChart.render();
-        //         break;
-        //       case "revenue-spline-area-chart": revenueSplineAreaChart.render();
-        //         break;
-        //       case "users-doughnut-chart": usersDoughnutChart.render();
-        //         break;
-        //       case "users-spline-chart": usersSplineChart.render();
-        //         break;
-               case "users-countries-bar-chart": state_Chart.render();
-                 break;
-        //       case "users-age-bar-chart": usersCountriesBarChart.render();
-        //         break;
+         case "fatality-doughnut-chart": fatality_chart.render();
+         break;
+         case "sex-doughnut-chart": gender_Chart.render();
+         break;
+         case "female-cases": female_cases_chart.render();
+         break;
+         case "female-critical": female_critical_chart.render();
+         break;
+         case "female-deaths": female_deaths_chart.render();
+         break;
+         case "male-cases": male_cases_chart.render();
+         break;
+         case "male-critical": male_critical_chart.render();
+         break;
+         case "male-deaths": male_deaths_chart.render();
+         break;
+         case "age-cases-doughnut-chart": age_cases_chart.render();
+         break;
+         case "age-critical-doughnut-chart": age_critical_chart.render();
+         break;
+         case "age-deaths-doughnut-chart": age_deaths_chart.render();
+         break;
+         case "daily-critical-infections-area-chart": critical_chart.render();
+         break;
+         case "total-infections-spline-area-chart": total_inf.render();
+         break;
+         case "total-deaths-spline-area-chart": total_deaths.render();
+         break;
+         case "daily-infections-spline-area-chart": daily_inf.render();
+         break;
+         case "daily-deaths-spline-area-chart": daily_deaths.render();
+         break;
+         case "users-countries-bar-chart": state_Chart.render();
+         break;
       }
     }
   });
